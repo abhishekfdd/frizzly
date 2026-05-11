@@ -93,13 +93,13 @@ class Frizzly_Admin_Post_Edit_Screen {
                 </li>
 				<?php foreach ( $this->networks as $net_slug => $net_name ): ?>
                     <li>
-                        <a href="#" data-frizzly-id="frizzly-<?php echo $net_slug; ?>"><?php echo $net_name; ?></a>
+                        <a href="#" data-frizzly-id="frizzly-<?php echo esc_attr( $net_slug ); ?>"><?php echo esc_html( $net_name ); ?></a>
                     </li>
 				<?php endforeach; ?>
             </ul>
             <div id="frizzly-general" class="frizzly-tab-panel"><?php $this->render_general_tab( $id ); ?></div>
 			<?php foreach ( $this->networks as $net_slug => $net_name ): ?>
-                <div id="frizzly-<?php echo $net_slug; ?>" class="frizzly-tab-panel" style="display:none">
+                <div id="frizzly-<?php echo esc_attr( $net_slug ); ?>" class="frizzly-tab-panel" style="display:none">
 					<?php $this->render_network_tab( $net_slug, $net_name, $meta[ $net_slug ], $recommended_image_size[ $net_slug ] ); ?>
                 </div>
 			<?php endforeach; ?>
@@ -125,9 +125,9 @@ class Frizzly_Admin_Post_Edit_Screen {
                 <td>
 					<?php foreach ( $this->meta_submodules as $sub_slug => $sub_name ): ?>
                         <label>
-                            <input name="frizzly-disabled-<?php echo $sub_slug; ?>" value="1"
+                            <input name="frizzly-disabled-<?php echo esc_attr( $sub_slug ); ?>" value="1"
                                    type="checkbox" <?php checked( in_array( $sub_slug, $enabled_submodules ) ); ?>/>
-							<?php echo $sub_name; ?>
+							<?php echo esc_html( $sub_name ); ?>
                         </label><br/>
 					<?php endforeach; ?>
                     <p class="description"><?php _e( 'Share icons from these share modules will be active in this entry.', 'frizzly' ); ?></p>
@@ -140,41 +140,41 @@ class Frizzly_Admin_Post_Edit_Screen {
 
 	function render_network_tab( $network_slug, $network_name, $meta, $featured_image_size = null ) {
 		?>
-        <p class="description"><?php printf( __( 'If you want to use custom settings for sharing this post on %s, fill the form below. Otherwise, leave it empty.', 'frizzly' ), $network_name ); ?></p>
+        <p class="description"><?php printf( __( 'If you want to use custom settings for sharing this post on %s, fill the form below. Otherwise, leave it empty.', 'frizzly' ), esc_html( $network_name ) ); ?></p>
         <table class="form-table">
             <tbody>
             <tr>
                 <th>
-                    <label for="frizzly_<?php echo $network_slug; ?>_title"><?php printf( __( '%s title', 'frizzly' ), $network_name ); ?></label>
+                    <label for="frizzly_<?php echo esc_attr( $network_slug ); ?>_title"><?php printf( __( '%s title', 'frizzly' ), esc_html( $network_name ) ); ?></label>
                 </th>
-                <td><input class="large-text" id="frizzly_<?php echo $network_slug; ?>_title"
-                           name="frizzly_<?php echo $network_slug; ?>_title"
-                           value="<?php echo $meta['title']; ?>"/>
+                <td><input class="large-text" id="frizzly_<?php echo esc_attr( $network_slug ); ?>_title"
+                           name="frizzly_<?php echo esc_attr( $network_slug ); ?>_title"
+                           value="<?php echo esc_attr( $meta['title'] ); ?>"/>
                 </td>
             </tr>
             <tr>
                 <th>
-                    <label for="frizzly_<?php echo $network_slug; ?>_description"><?php printf( __( '%s description', 'frizzly' ), $network_name ); ?></label>
+                    <label for="frizzly_<?php echo esc_attr( $network_slug ); ?>_description"><?php printf( __( '%s description', 'frizzly' ), esc_html( $network_name ) ); ?></label>
                 </th>
                 <td>
-                    <textarea class="large-text" id="frizzly_<?php echo $network_slug; ?>_description"
-                              name="frizzly_<?php echo $network_slug; ?>_description"><?php echo $meta['description']; ?></textarea>
+                    <textarea class="large-text" id="frizzly_<?php echo esc_attr( $network_slug ); ?>_description"
+                              name="frizzly_<?php echo esc_attr( $network_slug ); ?>_description"><?php echo esc_textarea( $meta['description'] ); ?></textarea>
                 </td>
             </tr>
             <tr>
                 <th>
-                    <label for="frizzly_<?php echo $network_slug; ?>_image"><?php printf( __( '%s image', 'frizzly' ), $network_name ); ?></label>
+                    <label for="frizzly_<?php echo esc_attr( $network_slug ); ?>_image"><?php printf( __( '%s image', 'frizzly' ), esc_html( $network_name ) ); ?></label>
                 </th>
                 <td>
-                    <input id="frizzly_<?php echo $network_slug; ?>_image" size="64"
-                           name="frizzly_<?php echo $network_slug; ?>_image"
-                           value="<?php echo $meta['image']; ?>"/>
+                    <input id="frizzly_<?php echo esc_attr( $network_slug ); ?>_image" size="64"
+                           name="frizzly_<?php echo esc_attr( $network_slug ); ?>_image"
+                           value="<?php echo esc_url( $meta['image'] ); ?>"/>
                     <input type="button" class="button frizzly-image-selector"
-                           data-frizzly-network="<?php echo $network_slug; ?>"
+                           data-frizzly-network="<?php echo esc_attr( $network_slug ); ?>"
                            value="<?php _e( 'Upload image', 'frizzly' ); ?>"/>
                     <p class="description">
 						<?php if ( $featured_image_size ) {
-							printf( __( 'Recommended image size for %s is %s by %s pixels.', 'frizzly' ), $network_name, $featured_image_size[0], $featured_image_size[1] );
+							printf( __( 'Recommended image size for %s is %s by %s pixels.', 'frizzly' ), esc_html( $network_name ), esc_html( $featured_image_size[0] ), esc_html( $featured_image_size[1] ) );
 						} ?>
                     </p>
                 </td>
@@ -185,7 +185,7 @@ class Frizzly_Admin_Post_Edit_Screen {
             </tbody>
         </table>
         <p><?php printf( __( 'You can edit global %s settings <a href="%s" target="_blank">here</a>.',
-				'frizzly' ), $network_name, admin_url( 'admin.php?page=frizzly_settings_general&tab=' . $network_slug ) ); ?>
+				'frizzly' ), esc_html( $network_name ), esc_url( admin_url( 'admin.php?page=frizzly_settings_general&tab=' . $network_slug ) ) ); ?>
         </p>
 		<?php
 	}
@@ -194,20 +194,20 @@ class Frizzly_Admin_Post_Edit_Screen {
 		?>
         <tr>
             <th>
-                <label for="frizzly_<?php echo $network_slug; ?>_image_title"><?php printf( __( '%s image title', 'frizzly' ), $network_name ); ?></label>
+                <label for="frizzly_<?php echo esc_attr( $network_slug ); ?>_image_title"><?php printf( __( '%s image title', 'frizzly' ), esc_html( $network_name ) ); ?></label>
             </th>
-            <td><input class="large-text" id="frizzly_<?php echo $network_slug; ?>_image_title"
-                       name="frizzly_<?php echo $network_slug; ?>_image_title"
-                       value="<?php echo $meta['image_title']; ?>"/>
+            <td><input class="large-text" id="frizzly_<?php echo esc_attr( $network_slug ); ?>_image_title"
+                       name="frizzly_<?php echo esc_attr( $network_slug ); ?>_image_title"
+                       value="<?php echo esc_attr( $meta['image_title'] ); ?>"/>
             </td>
         </tr>
         <tr>
             <th>
-                <label for="frizzly_<?php echo $network_slug; ?>_image_alt"><?php printf( __( '%s image alt text', 'frizzly' ), $network_name ); ?></label>
+                <label for="frizzly_<?php echo esc_attr( $network_slug ); ?>_image_alt"><?php printf( __( '%s image alt text', 'frizzly' ), esc_html( $network_name ) ); ?></label>
             </th>
-            <td><input class="large-text" id="frizzly_<?php echo $network_slug; ?>_image_alt"
-                       name="frizzly_<?php echo $network_slug; ?>_image_alt"
-                       value="<?php echo $meta['image_alt']; ?>"/>
+            <td><input class="large-text" id="frizzly_<?php echo esc_attr( $network_slug ); ?>_image_alt"
+                       name="frizzly_<?php echo esc_attr( $network_slug ); ?>_image_alt"
+                       value="<?php echo esc_attr( $meta['image_alt'] ); ?>"/>
             </td>
         </tr>
 		<?php
@@ -267,15 +267,15 @@ class Frizzly_Admin_Post_Edit_Screen {
 		$image_alt        = sprintf( 'frizzly_%s_image_alt', $network_name );
 
 		$arr = array(
-			'title'       => ! empty( $_POST[ $title_name ] ) ? $_POST[ $title_name ] : '',
-			'description' => ! empty( $_POST[ $description_name ] ) ? $_POST[ $description_name ] : '',
-			'image'       => ! empty( $_POST[ $image_name ] ) ? $_POST[ $image_name ] : ''
+			'title'       => ! empty( $_POST[ $title_name ] ) ? sanitize_text_field( wp_unslash( $_POST[ $title_name ] ) ) : '',
+			'description' => ! empty( $_POST[ $description_name ] ) ? sanitize_textarea_field( wp_unslash( $_POST[ $description_name ] ) ) : '',
+			'image'       => ! empty( $_POST[ $image_name ] ) ? esc_url_raw( wp_unslash( $_POST[ $image_name ] ) ) : ''
 		);
 		if ( 'pinterest' != $network_name ) {
 			return $arr;
 		}
-		$arr['image_title'] = ! empty( $_POST[ $image_title ] ) ? $_POST[ $image_title ] : '';
-		$arr['image_alt']   = ! empty( $_POST[ $image_alt ] ) ? $_POST[ $image_alt ] : '';
+		$arr['image_title'] = ! empty( $_POST[ $image_title ] ) ? sanitize_text_field( wp_unslash( $_POST[ $image_title ] ) ) : '';
+		$arr['image_alt']   = ! empty( $_POST[ $image_alt ] ) ? sanitize_text_field( wp_unslash( $_POST[ $image_alt ] ) ) : '';
 
 		return $arr;
 	}

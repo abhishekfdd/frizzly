@@ -16,7 +16,7 @@ class Frizzly_Meta_Elements {
 	function get_html() {
 		$res = '';
 		foreach ( $this->elements as $property => $content ) {
-			$res .= sprintf('<meta property="%s" content="%s" />', $property, $content);
+			$res .= sprintf('<meta property="%s" content="%s" />', esc_attr( $property ), esc_attr( $content ));
 		}
 		return $res;
 	}
