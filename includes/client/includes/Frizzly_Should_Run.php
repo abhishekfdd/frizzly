@@ -15,7 +15,7 @@ class Frizzly_Should_Run {
 		$disabled_array = explode( ',', $disabled );
 
 		foreach ( $enabled_array as $tag ) {
-			if ( Frizzly_Should_Run::is_tag( $tag ) ) {
+			if ( self::is_tag( $tag ) ) {
 				$should = true;
 				break;
 			}
@@ -26,7 +26,7 @@ class Frizzly_Should_Run {
 		}
 
 		foreach ( $disabled_array as $tag ) {
-			if ( Frizzly_Should_Run::is_tag( $tag ) ) {
+			if ( self::is_tag( $tag ) ) {
 				return false;
 			}
 		}
@@ -34,7 +34,7 @@ class Frizzly_Should_Run {
 		return true;
 	}
 
-	static private function is_tag( $tag ) {
+	private static function is_tag( $tag ) {
 		$tag = trim( $tag );
 		if ( is_numeric( $tag ) ) {
 			$int = intval( $tag );

@@ -36,7 +36,10 @@ abstract class Frizzly_Admin_Module {
 	function get_tabs() {
 		$tabs = array();
 		foreach ( $this->submodules as $slug => $sub ) {
-			$tabs[] = array( 'slug' => $sub->slug, 'name' => $sub->name );
+			$tabs[] = array(
+				'slug' => $sub->slug,
+				'name' => $sub->name,
+			);
 		}
 
 		return $tabs;
@@ -55,11 +58,11 @@ abstract class Frizzly_Admin_Module {
 
 	function save_settings( $submodule, $current_value ) {
 		$validator = $this->validate( $submodule, $current_value );
-		$errors = $validator->get_errors();
+		$errors    = $validator->get_errors();
 
 		if ( count( $errors ) > 0 ) {
-			$error_messages = array_merge(
-				array( '<strong>' .__( 'Settings not saved.', 'frizzly' ) . '</strong>' ),
+			$error_messages  = array_merge(
+				array( '<strong>' . __( 'Settings not saved.', 'frizzly' ) . '</strong>' ),
 				$errors
 			);
 			$this->notices[] = new Frizzly_Admin_Notice( 'error', true, join( '<br/>', $error_messages ) );
@@ -71,6 +74,7 @@ abstract class Frizzly_Admin_Module {
 
 	function show_notices( $is_share_module_screen ) {
 		foreach ( $this->notices as $notice ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Frizzly_Admin_Notice::get_html() escapes the class and runs the message through wp_kses_post().
 			echo $notice->get_html();
 		}
 	}
@@ -95,4 +99,3 @@ abstract class Frizzly_Admin_Module {
 		return $this->submodules[ $slug ]->validate( $current_value, $defaults[ $slug ] );
 	}
 }
-

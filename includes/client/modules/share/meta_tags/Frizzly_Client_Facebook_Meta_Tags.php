@@ -21,6 +21,7 @@ class Frizzly_Client_Facebook_Meta_Tags {
 		if ( false !== $img ) {
 			$elements->add_element( 'og:image', $img );
 		}
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Frizzly_Meta_Elements::get_html() escapes every property and content value with esc_attr().
 		echo $elements->get_html();
 	}
 }

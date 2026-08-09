@@ -7,7 +7,7 @@ class Frizzly_Client_General_Submodule extends Frizzly_Client_Submodule {
 	 *
 	 * @param $option Frizzly_Options
 	 */
-	function __construct($option) {
+	function __construct( $option ) {
 		parent::__construct( 'general', $option );
 
 		add_action( 'wp_head', array( $this, 'action_head' ) );
@@ -47,8 +47,8 @@ class Frizzly_Client_General_Submodule extends Frizzly_Client_Submodule {
 				'sourceEmailLabel' => __( 'Your Email Address', 'frizzly' ),
 				'sourceNameLabel'  => __( 'Your Name', 'frizzly' ),
 				'button'           => __( 'Send Email', 'frizzly' ),
-				'unknown_error'    => __( 'Unknown error. Sharing failed.', 'frizzly' )
-			)
+				'unknown_error'    => __( 'Unknown error. Sharing failed.', 'frizzly' ),
+			),
 		);
 	}
 }

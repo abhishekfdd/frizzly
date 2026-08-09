@@ -5,14 +5,14 @@ class Frizzly_Version_Updater {
 	private $option_name = 'frizzly_version';
 	private $version;
 
-	function __construct($version) {
+	function __construct( $version ) {
 		$this->version = $version;
 	}
 
 	function update() {
 		$version = get_option( $this->option_name, '1.0.1' );
 
-		if ($this->version == $version) {
+		if ( $this->version == $version ) {
 			return;
 		}
 

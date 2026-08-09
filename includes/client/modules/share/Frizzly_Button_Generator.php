@@ -14,7 +14,7 @@ class Frizzly_Button_Generator {
 			'frizzly-button-container',
 			'frizzly-button-size-' . $this->options['button_size'],
 			'frizzly-theme-' . $this->options['button_shape'],
-			$this->get_align_class()
+			$this->get_align_class(),
 		);
 		$container     = new Frizzly_Html_Element( 'div' );
 		$container->add_attribute( 'class', join( ' ', $div_classes ) );
@@ -23,11 +23,13 @@ class Frizzly_Button_Generator {
 			$additional_data = $data_provider->get_additional_data( $network_name );
 			$anchor          = new Frizzly_Html_Element( 'a' );
 			$anchor
-				->add_attributes( array(
-					'target' => $this->get_target_attribute( $network_name ),
-					'class'  => 'frizzly-button frizzly-' . $network_name,
-					'href'   => $link
-				) )
+				->add_attributes(
+					array(
+						'target' => $this->get_target_attribute( $network_name ),
+						'class'  => 'frizzly-button frizzly-' . $network_name,
+						'href'   => $link,
+					)
+				)
 				->add_attributes( $this->get_attributes( $network_name, $post_id, $additional_data ) );
 
 			$icon = new Frizzly_Html_Element( 'i' );

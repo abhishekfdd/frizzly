@@ -9,7 +9,7 @@ abstract class Frizzly_Client_Submodule {
 	private $option;
 
 	function __construct( $slug, $option ) {
-		$this->slug = $slug;
+		$this->slug   = $slug;
 		$this->option = $option;
 	}
 
@@ -31,7 +31,7 @@ abstract class Frizzly_Client_Submodule {
 	 */
 	function is_active() {
 		$module_options = $this->get_module_options();
-		return isset( $module_options[ 'general' ] ['active_' . $this->slug ] ) &&
-		       $module_options[ 'general' ] ['active_' . $this->slug ];
+		return isset( $module_options['general'] [ 'active_' . $this->slug ] ) &&
+				$module_options['general'] [ 'active_' . $this->slug ];
 	}
 }

@@ -23,8 +23,8 @@ class Frizzly_Client_Content_Submodule extends Frizzly_Client_Submodule {
 		$after   = in_array( $options['where'], array( 'after', 'before_after' ) );
 
 		return ! is_feed() &&
-		       Frizzly_Should_Run::should_execute( $options['enabled_on'], $options['disabled_on'] ) &&
-		       ( $before || $after );
+				Frizzly_Should_Run::should_execute( $options['enabled_on'], $options['disabled_on'] ) &&
+				( $before || $after );
 	}
 
 	function filter_add_pinterest_data( $content ) {
@@ -60,8 +60,8 @@ class Frizzly_Client_Content_Submodule extends Frizzly_Client_Submodule {
 					'image'  => array(
 						'url'         => isset( $atts_saved['src'] ) ? $atts_saved['src'] : '',
 						'image_title' => isset( $atts_saved['title'] ) ? $atts_saved['title'] : '',
-						'image_alt'   => isset( $atts_saved['alt'] ) ? $atts_saved['alt'] : ''
-					)
+						'image_alt'   => isset( $atts_saved['alt'] ) ? $atts_saved['alt'] : '',
+					),
 				);
 				$link   = Frizzly_Link_Generator::generate( 'pinterest', $data_provider, $a_data );
 				if ( strlen( $link ) > 0 ) {
@@ -98,8 +98,8 @@ class Frizzly_Client_Content_Submodule extends Frizzly_Client_Submodule {
 		return array(
 			'pinmarklet' => array(
 				'choose'    => __( 'Choose an image to Pin', 'frizzly' ),
-				'no_images' => __( 'There are no images to share in this post', 'frizzly' )
-			)
+				'no_images' => __( 'There are no images to share in this post', 'frizzly' ),
+			),
 		);
 	}
 }

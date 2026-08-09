@@ -1,11 +1,11 @@
 === Frizzly - Social Share Buttons ===
 Contributors: mrsztuczkens, abhishekfdd
-Tags: share, share button, Facebook, twitter, pinterest, linkedin, bookmark, Share, share this, sharing, social, socialize, pin it, button, image, images, pinit, social media, hover, photo, photos
-Requires at least: 3.5
-Tested up to: 5.5.3
-Stable tag: 1.1.0
-License: GPLv2 and (components under MIT License)
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: share buttons, social sharing, pinterest, twitter, facebook
+Requires at least: 6.5
+Tested up to: 7.0
+Stable tag: 1.1.1
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Frizzly allows you to add share buttons on images and in post content.
 
@@ -30,6 +30,15 @@ Please report them in the plugin's [support forum on WordPress.org](https://word
 3. Settings screen
 
 == Changelog ==
+
+= 1.1.1 =
+* Released 2026-08-09
+* Security: fixed a reflected cross-site scripting issue in the admin notice shown when no modules are active (CVE-2025-30554). The notice's dismiss link was built from the current request URI; it now uses an explicit admin URL.
+* Security: escaped the Open Graph and Twitter meta tags added to the site head, which previously output post-specific social settings unescaped.
+* Security: escaped all output on the post editor's Frizzly meta box and sanitised those fields on save.
+* Security: the settings screen now validates the requested tab against the registered tabs instead of trusting the query string.
+* Security: hardened the share-by-email endpoint (missing post check, sender domain no longer derived from the Host header).
+* Hardening: translated strings used as inline templates in the settings screen are sanitised and no longer evaluated as AngularJS expressions.
 
 = 1.1.0 =
 * Released 2017-01-30

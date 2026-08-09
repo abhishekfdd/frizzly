@@ -37,5 +37,4 @@ abstract class Frizzly_Meta {
 		$updated_value = $this->merge_arrays( $defaults, $new_value );
 		update_post_meta( $post_id, $this->meta_key, $updated_value );
 	}
-
 }

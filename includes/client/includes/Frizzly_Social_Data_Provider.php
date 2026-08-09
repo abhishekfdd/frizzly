@@ -11,8 +11,8 @@ class Frizzly_Social_Data_Provider {
 	 * @param $id int
 	 */
 	function __construct( $id ) {
-		$this->id            = $id;
-		$this->social_data   = null;
+		$this->id          = $id;
+		$this->social_data = null;
 	}
 
 	function get_description( $network ) {
@@ -45,7 +45,7 @@ class Frizzly_Social_Data_Provider {
 		return array(
 			'url'         => '' === $meta_image ? get_the_post_thumbnail_url( $this->id, 'full' ) : $meta_image,
 			'image_title' => $title,
-			'image_alt'   => $alt
+			'image_alt'   => $alt,
 		);
 	}
 
@@ -77,7 +77,7 @@ class Frizzly_Social_Data_Provider {
 	}
 
 	function get_additional_data( $network ) {
-		$share_options = new Frizzly_Share_Options();
+		$share_options     = new Frizzly_Share_Options();
 		$share_options_val = $share_options->get();
 		switch ( $network ) {
 			case 'twitter':
@@ -85,7 +85,7 @@ class Frizzly_Social_Data_Provider {
 					return array();
 				}
 				return array(
-					'handle' => $share_options_val['general']['twitter_handle']
+					'handle' => $share_options_val['general']['twitter_handle'],
 				);
 			case 'pinterest':
 				if ( 'user' === $share_options->get_pinterest_behavior() ) {
@@ -94,7 +94,7 @@ class Frizzly_Social_Data_Provider {
 
 				return array(
 					'image'  => $this->get_image_info( $network ),
-					'source' => $share_options->get_pinterest_source()
+					'source' => $share_options->get_pinterest_source(),
 				);
 			default:
 				return array();

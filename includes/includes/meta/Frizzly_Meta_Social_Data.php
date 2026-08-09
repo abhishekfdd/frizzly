@@ -10,13 +10,13 @@ class Frizzly_Meta_Social_Data extends Frizzly_Meta {
 		$default_network_settings = array(
 			'title'       => '',
 			'description' => '',
-			'image'       => ''
+			'image'       => '',
 		);
 
 		return array(
 			'facebook'  => $default_network_settings,
 			'twitter'   => $default_network_settings,
-			'pinterest' => $default_network_settings
+			'pinterest' => $default_network_settings,
 		);
 	}
 }

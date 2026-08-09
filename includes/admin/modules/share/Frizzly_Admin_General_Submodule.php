@@ -12,12 +12,14 @@ class Frizzly_Admin_General_Submodule extends Frizzly_Admin_Submodule {
 	}
 
 	function hide_nag_no_active_modules() {
+		// Dismissing the nag only sets a per-user display preference; no nonce applies.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( ! isset( $_GET[ $this->nag_no_active_modules ] ) ) {
 			return;
 		}
-		global $current_user;
+		global $current_user, $pagenow;
 		add_user_meta( $current_user->ID, $this->nag_no_active_modules, '1', true );
-		wp_redirect( remove_query_arg( $this->nag_no_active_modules ) );
+		wp_safe_redirect( admin_url( $pagenow ) );
 		exit;
 	}
 
@@ -32,6 +34,7 @@ class Frizzly_Admin_General_Submodule extends Frizzly_Admin_Submodule {
 			'meta_title'                => __( 'Meta settings', 'frizzly' ),
 			'meta_data_label'           => __( 'Meta data', 'frizzly' ),
 			'meta_data_description'     => __( 'Meta data is a list of additional meta tags in your site\'s <code>&lt;head&gt;</code> section. This data is used by share networks when someone shares your content. Open Graph meta data is used by Facebook, Pinterest, and other networks. Twitter has its own set of meta tags. If you already have a plugin that adds meta data to your website, settings above should be disabled. You can read more about Twitter cards <a href="https://dev.twitter.com/cards/overview" target="_blank">here</a>.', 'frizzly' ),
+			/* translators: 1: Twitter meta checkbox, 2: default card type select */
 			'meta_twitter_template'     => __( '%meta% <label for="meta_twitter_card_type">and set the default card type to</label> %card%', 'frizzly' ),
 		);
 	}
@@ -44,21 +47,21 @@ class Frizzly_Admin_General_Submodule extends Frizzly_Admin_Submodule {
 			'key'     => 'active_image',
 			'text'    => __( 'Image', 'frizzly' ),
 			'tooltip' => __( 'Image module shows share icons over images in your posts.', 'frizzly' ),
-			'type'    => 'boolean'
+			'type'    => 'boolean',
 		);
 
 		$settings['active_content'] = array(
 			'key'     => 'active_content',
 			'text'    => __( 'Content', 'frizzly' ),
 			'tooltip' => __( 'Content module shows share icons before, after, or before and after your posts.', 'frizzly' ),
-			'type'    => 'boolean'
+			'type'    => 'boolean',
 		);
 
 		/* TWITTER */
 		$settings['add_handle_to_tweets'] = array(
 			'key'   => 'add_handle_to_tweets',
 			'label' => __( 'Append "via @user" to tweets', 'frizzly' ),
-			'type'  => 'boolean'
+			'type'  => 'boolean',
 		);
 
 		$settings['twitter_handle'] = array(
@@ -66,7 +69,7 @@ class Frizzly_Admin_General_Submodule extends Frizzly_Admin_Submodule {
 			'label'       => __( 'Twitter username', 'frizzly' ),
 			'placeholder' => __( 'Your Twitter handle', 'frizzly' ),
 			'description' => __( 'Twitter handle is used in tweets if you decide to append "via @user" to them using the setting below. It is also used in Twitter meta data configured below.', 'frizzly' ),
-			'type'        => 'text'
+			'type'        => 'text',
 		);
 
 		/* PINTEREST */
@@ -77,12 +80,12 @@ class Frizzly_Admin_General_Submodule extends Frizzly_Admin_Submodule {
 			'options'        => array(
 				'post_title'  => __( 'Post title', 'frizzly' ),
 				'image_title' => __( 'Image title', 'frizzly' ),
-				'image_alt'   => __( 'Image alt text', 'frizzly' )
+				'image_alt'   => __( 'Image alt text', 'frizzly' ),
 			),
 			'type'           => 'multiselect',
 			'min'            => 1,
 			'error_messages' => array(
-				'min' => __( 'You need to select at least one Pinterest description source.', 'frizzly' )
+				'min' => __( 'You need to select at least one Pinterest description source.', 'frizzly' ),
 			),
 		);
 
@@ -103,7 +106,7 @@ class Frizzly_Admin_General_Submodule extends Frizzly_Admin_Submodule {
 			'key'     => 'meta_twitter_card_type',
 			'options' => array(
 				'summary'             => __( 'Summary', 'frizzly' ),
-				'summary_large_image' => __( 'Summary with large image', 'frizzly' )
+				'summary_large_image' => __( 'Summary with large image', 'frizzly' ),
 			),
 			'type'    => 'select',
 		);
@@ -123,6 +126,8 @@ class Frizzly_Admin_General_Submodule extends Frizzly_Admin_Submodule {
 
 		if ( $is_current_settings_screen && $this->is_current_tab_or_empty() ) {
 			$notice = new Frizzly_Admin_Notice( 'error', true, __( 'There are no active modules. Activate at least one to get going.', 'frizzly' ) );
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Frizzly_Admin_Notice::get_html() escapes the class and runs the message through wp_kses_post().
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Frizzly_Admin_Notice::get_html() escapes the class and runs the message through wp_kses_post().
 			echo $notice->get_html();
 		} else {
 			$this->show_nag_no_active_modules();
@@ -130,16 +135,22 @@ class Frizzly_Admin_General_Submodule extends Frizzly_Admin_Submodule {
 	}
 
 	private function show_nag_no_active_modules() {
-		global $current_user;
+		global $current_user, $pagenow;
 		$meta = get_user_meta( $current_user->ID, $this->nag_no_active_modules, true );
 		if ( '1' === $meta ) {
 			return;
 		}
-		$notice = new Frizzly_Admin_Notice( 'error', true, sprintf(
-			__( '<b>Frizzly</b> is almost ready! You need to activate the modules you want to use. <a class="button button-primary" style="margin-left: 10px" href="%s">Go to settings &rarr;</a> <a class="button button-secondary" href="%s">Don\'t bother me again</a>', 'frizzly' ),
-			admin_url( 'options-general.php?page=frizzly_settings&tab=general' ),
-			add_query_arg( $this->nag_no_active_modules, '1' )
-		) );
+		$notice = new Frizzly_Admin_Notice(
+			'error',
+			true,
+			sprintf(
+				/* translators: 1: URL of the General settings tab, 2: URL that dismisses this notice */
+				__( '<b>Frizzly</b> is almost ready! You need to activate the modules you want to use. <a class="button button-primary" style="margin-left: 10px" href="%1$s">Go to settings &rarr;</a> <a class="button button-secondary" href="%2$s">Don\'t bother me again</a>', 'frizzly' ),
+				admin_url( 'options-general.php?page=frizzly_settings&tab=general' ),
+				esc_url( add_query_arg( $this->nag_no_active_modules, '1', admin_url( $pagenow ) ) )
+			)
+		);
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Frizzly_Admin_Notice::get_html() escapes the class and runs the message through wp_kses_post().
 		echo $notice->get_html();
 	}
 }

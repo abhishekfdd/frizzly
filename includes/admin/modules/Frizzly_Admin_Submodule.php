@@ -5,8 +5,8 @@ abstract class Frizzly_Admin_Submodule {
 	public $slug;
 
 	function __construct( $slug, $name ) {
-		$this->name   = $name;
-		$this->slug   = $slug;
+		$this->name = $name;
+		$this->slug = $slug;
 	}
 
 	function get_page_i18n() {
@@ -16,10 +16,15 @@ abstract class Frizzly_Admin_Submodule {
 	abstract function get_page_settings( $db_value );
 
 	function is_current_tab() {
-		return isset( $_GET['tab'] ) && $this->slug === $_GET['tab'];
+		// Read-only view selector on a manage_options screen; no nonce applies.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$tab = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : '';
+
+		return '' !== $tab && $this->slug === $tab;
 	}
 
 	function is_current_tab_or_empty() {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		return $this->is_current_tab() || ! isset( $_GET['tab'] );
 	}
 
@@ -43,7 +48,7 @@ abstract class Frizzly_Admin_Submodule {
 	protected function create_image_selector( $args ) {
 		$base_args = array(
 			'button_text' => __( 'Select image', 'frizzly' ),
-			'title_text'  => __( 'Choose image', 'frizzly' )
+			'title_text'  => __( 'Choose image', 'frizzly' ),
 		);
 
 		return array_merge( $base_args, $args );

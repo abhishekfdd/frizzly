@@ -60,8 +60,8 @@ class Frizzly_Client_Share_Module {
 
 	private function add_submodules() {
 		$this->add_submodule( new Frizzly_Client_General_Submodule( $this->option ) );
-		$this->add_submodule( new Frizzly_Client_Image_Submodule( $this->option) );
-		$this->add_submodule( new Frizzly_Client_Content_Submodule( $this->option) );
+		$this->add_submodule( new Frizzly_Client_Image_Submodule( $this->option ) );
+		$this->add_submodule( new Frizzly_Client_Content_Submodule( $this->option ) );
 	}
 
 	/**

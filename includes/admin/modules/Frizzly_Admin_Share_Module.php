@@ -29,8 +29,10 @@ class Frizzly_Admin_Share_Module extends Frizzly_Admin_Module {
 	function is_current_module_screen() {
 		$screen = get_current_screen();
 
-		return 'options-general.php' === $screen->parent_file &&
-		       isset( $_GET['page'] ) && 'frizzly_settings' === $_GET['page'];
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : '';
+
+		return 'options-general.php' === $screen->parent_file && 'frizzly_settings' === $page;
 	}
 
 	function load_dependencies() {

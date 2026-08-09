@@ -21,7 +21,7 @@ abstract class Frizzly_Options {
 	public function update( $new_value ) {
 		$defaults = $this->get_default();
 		$merged   = $this->merge_arrays( $defaults, $new_value );
-		$merged = $this->sanitize( $merged );
+		$merged   = $this->sanitize( $merged );
 		update_option( $this->get_name(), $merged );
 
 		return $merged;

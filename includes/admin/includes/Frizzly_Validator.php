@@ -83,6 +83,7 @@ class Frizzly_Validator {
 
 	private function validate_float( $value, $setting ) {
 		if ( ! is_float( $value ) ) {
+			/* translators: %1$s: setting label */
 			return $this->get_error_text( 'type', __( '%1$s value is not a number.', 'frizzly' ), $setting );
 		}
 
@@ -91,6 +92,7 @@ class Frizzly_Validator {
 
 	private function validate_int( $value, $setting ) {
 		if ( ! is_int( $value ) ) {
+			/* translators: %1$s: setting label */
 			return $this->get_error_text( 'type', __( '%1$s value is not a number.', 'frizzly' ), $setting );
 		}
 
@@ -99,9 +101,11 @@ class Frizzly_Validator {
 
 	private function validate_mix_max( $value, $setting ) {
 		if ( isset( $setting['min'] ) && $value < $setting['min'] ) {
+			/* translators: 1: setting label, 2: minimum allowed value */
 			return $this->get_error_text( 'min', __( '%1$s  value is less than the minimum value of %2$s.', 'frizzly' ), $setting );
 		}
 		if ( isset( $setting['max'] ) && $value > $setting['max'] ) {
+			/* translators: 1: setting label, 2: maximum allowed value */
 			return $this->get_error_text( 'max', __( '%1$s value is greater than the minimum value of %2$s.', 'frizzly' ), $setting );
 		}
 
@@ -109,12 +113,14 @@ class Frizzly_Validator {
 	}
 
 	private function validate_multiselect( $value, $setting ) {
+		/* translators: %1$s: setting label */
 		$err = __( '%1$s value is invalid.', 'frizzly' );
 		if ( ! is_array( $value ) ) {
-			return $this->get_error_text( 'type',  $err, $setting );
+			return $this->get_error_text( 'type', $err, $setting );
 		}
 		if ( isset( $setting['min'] ) && count( $value ) < $setting['min'] ) {
-			return $this->get_error_text( 'min', __('%1$s does not have enough selected records.', 'frizzly'), $setting);
+			/* translators: %1$s: setting label */
+			return $this->get_error_text( 'min', __( '%1$s does not have enough selected records.', 'frizzly' ), $setting );
 		}
 		$options_keys = array_keys( $setting['options'] );
 		foreach ( $value as $name ) {
@@ -130,6 +136,7 @@ class Frizzly_Validator {
 		$options_keys = array_keys( $setting['options'] );
 		if ( ! in_array( $value, $options_keys ) ) {
 			return sprintf(
+				/* translators: %1$s: setting label */
 				__( '%1$s value is invalid.', 'frizzly' ),
 				$this->get_error_label( $setting )
 			);
@@ -151,9 +158,12 @@ class Frizzly_Validator {
 				return 'on' === $value;
 			case 'multiselect':
 				return '' === $value ? array() : explode( ',', $value );
+			case 'text':
+				// Free-text settings are stored and later re-emitted (meta tags, localized
+				// script data), so strip markup here rather than relying on output escaping.
+				return is_string( $value ) ? sanitize_text_field( $value ) : $value;
 			default:
 				return $value;
 		}
 	}
-
 }

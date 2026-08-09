@@ -22,7 +22,7 @@ class Frizzly_Client_Image_Submodule extends Frizzly_Client_Submodule {
 	function filter_the_content( $content ) {
 		$options           = $this->get_submodule_options();
 		$return_conditions = is_feed() ||
-		                     ! Frizzly_Should_Run::should_execute( $options['enabled_on'], $options['disabled_on'] );
+							! Frizzly_Should_Run::should_execute( $options['enabled_on'], $options['disabled_on'] );
 		if ( $return_conditions ) {
 			return $content;
 		}
@@ -68,8 +68,8 @@ class Frizzly_Client_Image_Submodule extends Frizzly_Client_Submodule {
 						'image'  => array(
 							'url'         => isset( $atts_saved['src'] ) ? $atts_saved['src'] : '',
 							'image_title' => isset( $atts_saved['title'] ) ? $atts_saved['title'] : '',
-							'image_alt'   => isset( $atts_saved['alt'] ) ? $atts_saved['alt'] : ''
-						)
+							'image_alt'   => isset( $atts_saved['alt'] ) ? $atts_saved['alt'] : '',
+						),
 					)
 					: null;
 				$link   = Frizzly_Link_Generator::generate( $network_name, $data_provider, $a_data );
@@ -95,7 +95,7 @@ class Frizzly_Client_Image_Submodule extends Frizzly_Client_Submodule {
 		$classes = preg_split( '/\s+/', $class_attribute, - 1, PREG_SPLIT_NO_EMPTY );
 		$prefix  = 'wp-image-';
 
-		for ( $i = 0; $i < count( $classes ); $i ++ ) {
+		for ( $i = 0; $i < count( $classes ); $i++ ) {
 
 			if ( $prefix === substr( $classes[ $i ], 0, strlen( $prefix ) ) ) {
 				return str_replace( $prefix, '', $classes[ $i ] );
@@ -131,11 +131,11 @@ class Frizzly_Client_Image_Submodule extends Frizzly_Client_Submodule {
 	function fjarrett_get_attachment_id_by_url( $url ) {
 
 		// Split the $url into two parts with the wp-content directory as the separator.
-		$parse_url = explode( parse_url( WP_CONTENT_URL, PHP_URL_PATH ), $url );
+		$parse_url = explode( wp_parse_url( WP_CONTENT_URL, PHP_URL_PATH ), $url );
 
 		// Get the host of the current site and the host of the $url, ignoring www.
-		$this_host = str_ireplace( 'www.', '', parse_url( home_url(), PHP_URL_HOST ) );
-		$file_host = str_ireplace( 'www.', '', parse_url( $url, PHP_URL_HOST ) );
+		$this_host = str_ireplace( 'www.', '', wp_parse_url( home_url(), PHP_URL_HOST ) );
+		$file_host = str_ireplace( 'www.', '', wp_parse_url( $url, PHP_URL_HOST ) );
 
 		// Return nothing if there aren't any $url parts or if the current host and $url host do not match.
 		if ( ! isset( $parse_url[1] ) || empty( $parse_url[1] ) || ( $this_host != $file_host ) ) {
@@ -146,8 +146,16 @@ class Frizzly_Client_Image_Submodule extends Frizzly_Client_Submodule {
 		// Example: /uploads/2013/05/test-image.jpg
 		global $wpdb;
 
-		$prefix     = $wpdb->prefix;
-		$attachment = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM " . $prefix . "posts WHERE guid RLIKE %s;", $parse_url[1] ) );
+		$cache_key  = 'frizzly_attachment_by_url_' . md5( $parse_url[1] );
+		$attachment = wp_cache_get( $cache_key, 'frizzly' );
+
+		if ( false === $attachment ) {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- No core API resolves an attachment ID from a partial GUID path; result is cached above.
+			$attachment = $wpdb->get_col(
+				$wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE guid RLIKE %s", $parse_url[1] )
+			);
+			wp_cache_set( $cache_key, $attachment, 'frizzly', HOUR_IN_SECONDS );
+		}
 
 		// Returns null if no attachment is found.
 		return $attachment ? $attachment[0] : null;

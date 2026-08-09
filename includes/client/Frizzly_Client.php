@@ -13,7 +13,6 @@ class Frizzly_Client {
 	function __construct( $version, $file ) {
 		$this->version = $version;
 		$this->file    = $file;
-		$this->modules = array();
 
 		$this->load_dependencies();
 		$this->add_actions();

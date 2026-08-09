@@ -28,3 +28,11 @@ your own independent analysis.
 Use the context-correct WP function (esc_html, esc_attr, esc_url,
 esc_textarea, wp_kses_post). Never htmlspecialchars.
 Sanitise on input with wp_unslash plus the right sanitize_* call.
+
+## Do not fix by wrapping alone
+Escaping at the sink is required but not sufficient. Where the
+unsafe value comes from $_SERVER['REQUEST_URI'] or an unvalidated
+$_GET key, remove the unsafe input entirely (explicit base URL,
+whitelist) rather than escaping the tainted string.
+Values reaching Angular {{ }} interpolation cannot be made safe
+by esc_attr. Flag these, do not patch them blind.

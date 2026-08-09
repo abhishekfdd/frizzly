@@ -412,10 +412,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var ButtonStyleDirective = function () {
-    function ButtonStyleDirective($compile) {
+    function ButtonStyleDirective($compile, $sanitize) {
         _classCallCheck(this, ButtonStyleDirective);
 
         this.$compile = $compile;
+        this.$sanitize = $sanitize;
         this.restrict = 'E';
         this.scope = {
             align: '=',
@@ -429,10 +430,26 @@ var ButtonStyleDirective = function () {
     _createClass(ButtonStyleDirective, [{
         key: 'link',
         value: function link($scope, $element, $attrs) {
-            var template = $scope.template;
-            var html = template.replace('%align%', '<editor-select args="align" on-update="update({ $event })"></editor-select>').replace('%size%', '<editor-select args="size" on-update="update({ $event })"></editor-select>').replace('%shape%', '<editor-select args="shape" on-update="update({ $event })"></editor-select>');
-            $element.html(html);
-            this.$compile($element.contents())($scope);
+            var widgets = {
+                '%align%': '<editor-select args="align" on-update="update({ $event })"></editor-select>',
+                '%size%': '<editor-select args="size" on-update="update({ $event })"></editor-select>',
+                '%shape%': '<editor-select args="shape" on-update="update({ $event })"></editor-select>'
+            };
+            var self = this;
+            var parts = String($scope.template || '').split(/(%\w+%)/);
+            $element.empty();
+            parts.forEach(function (part) {
+                if (!part) return;
+                if (widgets.hasOwnProperty(part)) {
+                    var widget = angular.element(widgets[part]);
+                    $element.append(widget);
+                    self.$compile(widget)($scope);
+                } else {
+                    // Translator-supplied text is sanitized and never compiled, so markup is
+                    // limited to the ngSanitize whitelist and any {{ }} in it stays inert.
+                    $element.append(angular.element('<span></span>').html(self.$sanitize(part)));
+                }
+            });
         }
     }]);
 
@@ -486,8 +503,8 @@ var _buttonStyle2 = _interopRequireDefault(_buttonStyle);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _module = _angular2.default.module('app.share.content', []).component('shareContent', _content2.default).directive('contentButtonStyle', ['$compile', function ($compile) {
-    return new _buttonStyle2.default($compile);
+var _module = _angular2.default.module('app.share.content', []).component('shareContent', _content2.default).directive('contentButtonStyle', ['$compile', '$sanitize', function ($compile, $sanitize) {
+    return new _buttonStyle2.default($compile, $sanitize);
 }]).name;
 
 exports.default = _module;
@@ -537,8 +554,8 @@ var _twitterMeta2 = _interopRequireDefault(_twitterMeta);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _module = _angular2.default.module('app.share.general', []).component('shareGeneral', _general2.default).directive('twitterMeta', ['$compile', function ($compile) {
-    return new _twitterMeta2.default($compile);
+var _module = _angular2.default.module('app.share.general', []).component('shareGeneral', _general2.default).directive('twitterMeta', ['$compile', '$sanitize', function ($compile, $sanitize) {
+    return new _twitterMeta2.default($compile, $sanitize);
 }]).name;
 
 exports.default = _module;
@@ -555,10 +572,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var TwitterMetaDirective = function () {
-    function TwitterMetaDirective($compile) {
+    function TwitterMetaDirective($compile, $sanitize) {
         _classCallCheck(this, TwitterMetaDirective);
 
         this.$compile = $compile;
+        this.$sanitize = $sanitize;
         this.restrict = 'E';
         this.scope = {
             meta: '=',
@@ -571,10 +589,25 @@ var TwitterMetaDirective = function () {
     _createClass(TwitterMetaDirective, [{
         key: 'link',
         value: function link($scope, $element, $attrs) {
-            var template = $scope.template;
-            var html = template.replace('%meta%', '<editor-checkbox args="meta" on-update="update({ $event })" add-br="false"></editor-checkbox>').replace('%card%', '<editor-select args="card" on-update="update({ $event })"></editor-select>');
-            $element.html(html);
-            this.$compile($element.contents())($scope);
+            var widgets = {
+                '%meta%': '<editor-checkbox args="meta" on-update="update({ $event })" add-br="false"></editor-checkbox>',
+                '%card%': '<editor-select args="card" on-update="update({ $event })"></editor-select>'
+            };
+            var self = this;
+            var parts = String($scope.template || '').split(/(%\w+%)/);
+            $element.empty();
+            parts.forEach(function (part) {
+                if (!part) return;
+                if (widgets.hasOwnProperty(part)) {
+                    var widget = angular.element(widgets[part]);
+                    $element.append(widget);
+                    self.$compile(widget)($scope);
+                } else {
+                    // Translator-supplied text is sanitized and never compiled, so markup is
+                    // limited to the ngSanitize whitelist and any {{ }} in it stays inert.
+                    $element.append(angular.element('<span></span>').html(self.$sanitize(part)));
+                }
+            });
         }
     }]);
 
@@ -595,10 +628,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var ButtonStyleDirective = function () {
-    function ButtonStyleDirective($compile) {
+    function ButtonStyleDirective($compile, $sanitize) {
         _classCallCheck(this, ButtonStyleDirective);
 
         this.$compile = $compile;
+        this.$sanitize = $sanitize;
         this.restrict = 'E';
         this.scope = {
             size: '=',
@@ -612,10 +646,26 @@ var ButtonStyleDirective = function () {
     _createClass(ButtonStyleDirective, [{
         key: 'link',
         value: function link($scope, $element, $attrs) {
-            var template = $scope.template;
-            var html = template.replace('%size%', '<editor-select args="size" on-update="update({ $event })"></editor-select>').replace('%shape%', '<editor-select args="shape" on-update="update({ $event })"></editor-select>').replace('%show%', '<editor-select args="show" on-update="update({ $event })"></editor-select>');
-            $element.html(html);
-            this.$compile($element.contents())($scope);
+            var widgets = {
+                '%size%': '<editor-select args="size" on-update="update({ $event })"></editor-select>',
+                '%shape%': '<editor-select args="shape" on-update="update({ $event })"></editor-select>',
+                '%show%': '<editor-select args="show" on-update="update({ $event })"></editor-select>'
+            };
+            var self = this;
+            var parts = String($scope.template || '').split(/(%\w+%)/);
+            $element.empty();
+            parts.forEach(function (part) {
+                if (!part) return;
+                if (widgets.hasOwnProperty(part)) {
+                    var widget = angular.element(widgets[part]);
+                    $element.append(widget);
+                    self.$compile(widget)($scope);
+                } else {
+                    // Translator-supplied text is sanitized and never compiled, so markup is
+                    // limited to the ngSanitize whitelist and any {{ }} in it stays inert.
+                    $element.append(angular.element('<span></span>').html(self.$sanitize(part)));
+                }
+            });
         }
     }]);
 
@@ -727,10 +777,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var ImageClassesDirective = function () {
-    function ImageClassesDirective($compile) {
+    function ImageClassesDirective($compile, $sanitize) {
         _classCallCheck(this, ImageClassesDirective);
 
         this.$compile = $compile;
+        this.$sanitize = $sanitize;
         this.restrict = 'E';
         this.scope = {
             discriminator: '=',
@@ -743,10 +794,25 @@ var ImageClassesDirective = function () {
     _createClass(ImageClassesDirective, [{
         key: 'link',
         value: function link($scope, $element, $attrs) {
-            var template = $scope.template;
-            var html = template.replace('%discriminator%', '<editor-select args="discriminator" on-update="update({ $event })"></editor-select>').replace('%classes%', '<editor-text args="classes" on-update="update({ $event })"></editor-text>');
-            $element.html(html);
-            this.$compile($element.contents())($scope);
+            var widgets = {
+                '%discriminator%': '<editor-select args="discriminator" on-update="update({ $event })"></editor-select>',
+                '%classes%': '<editor-text args="classes" on-update="update({ $event })"></editor-text>'
+            };
+            var self = this;
+            var parts = String($scope.template || '').split(/(%\w+%)/);
+            $element.empty();
+            parts.forEach(function (part) {
+                if (!part) return;
+                if (widgets.hasOwnProperty(part)) {
+                    var widget = angular.element(widgets[part]);
+                    $element.append(widget);
+                    self.$compile(widget)($scope);
+                } else {
+                    // Translator-supplied text is sanitized and never compiled, so markup is
+                    // limited to the ngSanitize whitelist and any {{ }} in it stays inert.
+                    $element.append(angular.element('<span></span>').html(self.$sanitize(part)));
+                }
+            });
         }
     }]);
 
@@ -784,12 +850,12 @@ var _image2 = _interopRequireDefault(_image);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _module = _angular2.default.module('app.share.image', []).directive('resolution', ['$compile', function ($compile) {
-    return new _resolution2.default($compile);
-}]).directive('imageButtonStyle', ['$compile', function ($compile) {
-    return new _buttonStyle2.default($compile);
-}]).directive('imageClasses', ['$compile', function ($compile) {
-    return new _imageClasses2.default($compile);
+var _module = _angular2.default.module('app.share.image', []).directive('resolution', ['$compile', '$sanitize', function ($compile, $sanitize) {
+    return new _resolution2.default($compile, $sanitize);
+}]).directive('imageButtonStyle', ['$compile', '$sanitize', function ($compile, $sanitize) {
+    return new _buttonStyle2.default($compile, $sanitize);
+}]).directive('imageClasses', ['$compile', '$sanitize', function ($compile, $sanitize) {
+    return new _imageClasses2.default($compile, $sanitize);
 }]).component('shareImage', _image2.default).name;
 
 exports.default = _module;
@@ -806,10 +872,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var ResolutionDirective = function () {
-    function ResolutionDirective($compile) {
+    function ResolutionDirective($compile, $sanitize) {
         _classCallCheck(this, ResolutionDirective);
 
         this.$compile = $compile;
+        this.$sanitize = $sanitize;
         this.restrict = 'E';
         this.scope = {
             height: '=',
@@ -822,10 +889,25 @@ var ResolutionDirective = function () {
     _createClass(ResolutionDirective, [{
         key: 'link',
         value: function link($scope, $element, $attrs) {
-            var template = $scope.template;
-            var html = template.replace('%height%', '<editor-number args="height" on-update="update({ $event })"></editor-number>').replace('%width%', '<editor-number args="width" on-update="update({ $event })"></editor-number>');
-            $element.html(html);
-            this.$compile($element.contents())($scope);
+            var widgets = {
+                '%height%': '<editor-number args="height" on-update="update({ $event })"></editor-number>',
+                '%width%': '<editor-number args="width" on-update="update({ $event })"></editor-number>'
+            };
+            var self = this;
+            var parts = String($scope.template || '').split(/(%\w+%)/);
+            $element.empty();
+            parts.forEach(function (part) {
+                if (!part) return;
+                if (widgets.hasOwnProperty(part)) {
+                    var widget = angular.element(widgets[part]);
+                    $element.append(widget);
+                    self.$compile(widget)($scope);
+                } else {
+                    // Translator-supplied text is sanitized and never compiled, so markup is
+                    // limited to the ngSanitize whitelist and any {{ }} in it stays inert.
+                    $element.append(angular.element('<span></span>').html(self.$sanitize(part)));
+                }
+            });
         }
     }]);
 

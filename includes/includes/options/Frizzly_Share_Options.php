@@ -30,7 +30,7 @@ class Frizzly_Share_Options extends Frizzly_Options {
 				'image_classes'          => '',
 				'image_classes_positive' => true,
 				'enabled_on'             => '[front],[home],[single],[page],[archive],[search],[category]',
-				'disabled_on'            => ''
+				'disabled_on'            => '',
 			),
 			'content' => array(
 				'align'              => 'left',
@@ -40,7 +40,7 @@ class Frizzly_Share_Options extends Frizzly_Options {
 				'button_size'        => 'normal',
 				'button_shape'       => 'square',
 				'enabled_on'         => '[front],[home],[single],[page],[archive],[search],[category]',
-				'disabled_on'        => ''
+				'disabled_on'        => '',
 			),
 			'general' => array(
 				// ACTIVE MODULES
@@ -55,7 +55,7 @@ class Frizzly_Share_Options extends Frizzly_Options {
 				'meta_open_graph'        => true,
 				'meta_twitter'           => true,
 				'meta_twitter_card_type' => 'summary_large_image',
-			)
+			),
 		);
 
 		return $defaults;
