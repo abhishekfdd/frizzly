@@ -1,21 +1,46 @@
 <?php
+/**
+ * Frizzly Social Data Provider.
+ *
+ * @package Frizzly
+ */
 
+/**
+ * Frizzly Social Data Provider.
+ */
 class Frizzly_Social_Data_Provider {
 
+	/**
+	 * Id.
+	 *
+	 * @var mixed
+	 */
 	private $id;
+	/**
+	 * Social data.
+	 *
+	 * @var mixed
+	 */
 	private $social_data;
 
 	/**
+	 *
 	 * Frizzly_Social_Data_Provider constructor.
 	 *
-	 * @param $id int
+	 * @param mixed $id int.
 	 */
-	function __construct( $id ) {
+	public function __construct( $id ) {
 		$this->id          = $id;
 		$this->social_data = null;
 	}
 
-	function get_description( $network ) {
+	/**
+	 *
+	 * Get description.
+	 *
+	 * @param mixed $network Network.
+	 */
+	public function get_description( $network ) {
 		$meta_desc = $this->get_network_property( $network, 'description' );
 
 		if ( '' !== $meta_desc ) {
@@ -28,7 +53,13 @@ class Frizzly_Social_Data_Provider {
 		return wp_trim_words( $excerpt );
 	}
 
-	function get_image_info( $network ) {
+	/**
+	 *
+	 * Get image info.
+	 *
+	 * @param mixed $network Network.
+	 */
+	public function get_image_info( $network ) {
 		$meta_image = $this->get_network_property( $network, 'image' );
 		if ( '' === $meta_image && ! has_post_thumbnail( $this->id ) ) {
 			return false;
@@ -49,7 +80,13 @@ class Frizzly_Social_Data_Provider {
 		);
 	}
 
-	function get_image_url( $network ) {
+	/**
+	 *
+	 * Get image url.
+	 *
+	 * @param mixed $network Network.
+	 */
+	public function get_image_url( $network ) {
 		$meta_image = $this->get_network_property( $network, 'image' );
 
 		if ( '' !== $meta_image ) {
@@ -59,15 +96,31 @@ class Frizzly_Social_Data_Provider {
 		return has_post_thumbnail( $this->id ) ? get_the_post_thumbnail_url( $this->id, 'full' ) : false;
 	}
 
-	function get_site_name( $network ) {
+	/**
+	 *
+	 * Get site name.
+	 *
+	 * @param mixed $network Network.
+	 */
+	public function get_site_name( $network ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter -- Kept for symmetry with the other get_*( $network ) accessors.
 		return get_bloginfo( 'description' );
 	}
 
-	function get_url() {
+	/**
+	 *
+	 * Get url.
+	 */
+	public function get_url() {
 		return get_permalink( $this->id );
 	}
 
-	function get_title( $network ) {
+	/**
+	 *
+	 * Get title.
+	 *
+	 * @param mixed $network Network.
+	 */
+	public function get_title( $network ) {
 		$meta_title = $this->get_network_property( $network, 'title' );
 		if ( '' !== $meta_title ) {
 			return $meta_title;
@@ -76,7 +129,13 @@ class Frizzly_Social_Data_Provider {
 		return get_the_title( $this->id );
 	}
 
-	function get_additional_data( $network ) {
+	/**
+	 *
+	 * Get additional data.
+	 *
+	 * @param mixed $network Network.
+	 */
+	public function get_additional_data( $network ) {
 		$share_options     = new Frizzly_Share_Options();
 		$share_options_val = $share_options->get();
 		switch ( $network ) {
@@ -101,12 +160,23 @@ class Frizzly_Social_Data_Provider {
 		}
 	}
 
+	/**
+	 *
+	 * Initialize social data.
+	 */
 	private function initialize_social_data() {
 		$meta              = new Frizzly_Meta_Social_Data();
 		$this->social_data = $meta->get( $this->id );
 	}
 
-	function get_network_property( $network, $prop_name ) {
+	/**
+	 *
+	 * Get network property.
+	 *
+	 * @param mixed $network Network.
+	 * @param mixed $prop_name Prop name.
+	 */
+	public function get_network_property( $network, $prop_name ) {
 		if ( null === $this->social_data ) {
 			$this->initialize_social_data();
 		}

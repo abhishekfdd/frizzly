@@ -1,8 +1,22 @@
 <?php
+/**
+ * Frizzly Admin Button Settings Submodule Base.
+ *
+ * @package Frizzly
+ */
 
+/**
+ * Frizzly Admin Button Settings Submodule Base.
+ */
 class Frizzly_Admin_Button_Settings_Submodule_Base extends Frizzly_Admin_Submodule {
 
-	function get_page_settings( $db_value ) {
+	/**
+	 *
+	 * Get page settings.
+	 *
+	 * @param mixed $db_value Db value.
+	 */
+	public function get_page_settings( $db_value ) {
 		$settings = array();
 
 		$settings['networks'] = array(
@@ -71,7 +85,11 @@ class Frizzly_Admin_Button_Settings_Submodule_Base extends Frizzly_Admin_Submodu
 		return $settings;
 	}
 
-	function get_page_i18n() {
+	/**
+	 *
+	 * Get page i18n.
+	 */
+	public function get_page_i18n() {
 		return array(
 			'where_title'       => __( 'On which pages should the buttons be shown', 'frizzly' ),
 			'where_description' => __( 'Separate tags using commas. For the button to show up on a certain page, the page must be included in the "Enabled on" section and not included in the "Disabled on" section. You can use the following tags:', 'frizzly' )
@@ -89,7 +107,14 @@ class Frizzly_Admin_Button_Settings_Submodule_Base extends Frizzly_Admin_Submodu
 		);
 	}
 
-	function show_notice( $is_current_settings_screen, $options ) {
+	/**
+	 *
+	 * Show notice.
+	 *
+	 * @param mixed $is_current_settings_screen Is current settings screen.
+	 * @param mixed $options Options.
+	 */
+	public function show_notice( $is_current_settings_screen, $options ) {
 		$return_condition = ! $is_current_settings_screen ||
 							! $this->is_current_tab() ||
 							$options['general'][ 'active_' . $this->slug ];

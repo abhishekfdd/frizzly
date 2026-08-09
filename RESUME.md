@@ -35,7 +35,33 @@ alone"** section. That rule is binding and shaped change 1 (see below).
 | 6 | stop compiling translator text in 5 Angular directives | DONE |
 | 7 | version bump 1.1.0 → 1.1.1 + changelog + readme metadata | DONE |
 | 8 | readme/header metadata for reinstatement (license, tags, Requires, Tested up to) | DONE |
-| B | docblocks / method scope / file naming (bulk phpcs cleanup) | pending, needs a decision |
+| B | docblocks / method scope / file naming (bulk phpcs cleanup) | DONE — **phpcs is clean, 0 violations** |
+
+Changes 1-7 were committed as `91a08bc`. Everything after that (change B) is in the
+working tree.
+
+### Change B, as executed
+
+- `WordPress.Files.FileName` **excluded** in `phpcs.xml.dist` with a comment; the
+  40-file rename is recorded in `TODO-1.2.0.md` along with six other deferred items.
+- `public` added to 144 methods; `abstract public` / `public static` fixed on 5 more.
+- File, class, property and method docblocks generated across all 57 files, then
+  pre-existing `@param $var type` blocks normalised to `@param type $var Desc.`
+- Loose comparisons made strict **individually, not by phpcbf** — each was checked
+  for a behaviour change. One is a deliberate behaviour change:
+  `Frizzly_Ajax_Result_Builder::build()` used `$this->model != null`, which also
+  dropped an *empty array* model; it is now `null !== $this->model`.
+- `$newImg` → `$new_img`; `encodeURIComponent()` → `encode_uri_component()`
+  (19 references); `$default` param → `$default_value`; `count()` hoisted out of a
+  loop condition; two commented-out option lines removed.
+- Unused hook-signature params annotated with `phpcs:ignore` **on the declaration
+  line** — putting it above the docblock does not work, phpcs:ignore only guards
+  the next line.
+- `Frizzly_Admin_Settings_Screen::__construct()` lost its genuinely unused
+  `$admin_modules` argument; caller in `Frizzly_Admin.php` updated.
+- `frizzly_activation_hook()` became `Frizzly_Loader::activation_hook()` so the
+  main file no longer mixes function and OO declarations. Re-verified: deactivate
+  → activate sets `_frizzly_activation_redirect`.
 
 ### Gate status
 

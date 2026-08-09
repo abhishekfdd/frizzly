@@ -1,12 +1,30 @@
 <?php
+/**
+ * Frizzly Admin Content Submodule.
+ *
+ * @package Frizzly
+ */
 
+/**
+ * Frizzly Admin Content Submodule.
+ */
 class Frizzly_Admin_Content_Submodule extends Frizzly_Admin_Button_Settings_Submodule_Base {
 
-	function __construct() {
+	/**
+	 *
+	 * Constructor.
+	 */
+	public function __construct() {
 		parent::__construct( 'content', __( 'Content', 'frizzly' ) );
 	}
 
-	function get_page_settings( $db_value ) {
+	/**
+	 *
+	 * Get page settings.
+	 *
+	 * @param mixed $db_value Db value.
+	 */
+	public function get_page_settings( $db_value ) {
 		$settings = parent::get_page_settings( $db_value );
 
 		$settings['align'] = array(
@@ -47,7 +65,11 @@ class Frizzly_Admin_Content_Submodule extends Frizzly_Admin_Button_Settings_Subm
 		return $settings;
 	}
 
-	function get_page_i18n() {
+	/**
+	 *
+	 * Get page i18n.
+	 */
+	public function get_page_i18n() {
 		$parent_i18n = parent::get_page_i18n();
 		$new_i18n    = array(
 			'module_description'    => __( 'Content module shows share icons inside (before, after or both) your posts.', 'frizzly' ),

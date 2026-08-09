@@ -1,16 +1,43 @@
 <?php
+/**
+ * Frizzly Client.
+ *
+ * @package Frizzly
+ */
 
+/**
+ * Frizzly Client.
+ */
 class Frizzly_Client {
 
+	/**
+	 * Version.
+	 *
+	 * @var mixed
+	 */
 	private $version;
+	/**
+	 * File.
+	 *
+	 * @var mixed
+	 */
 	private $file;
 
 	/**
+	 * Share module.
+	 *
 	 * @var Frizzly_Client_Share_Module
 	 */
 	private $share_module;
 
-	function __construct( $version, $file ) {
+	/**
+	 *
+	 * Constructor.
+	 *
+	 * @param mixed $version Version.
+	 * @param mixed $file File.
+	 */
+	public function __construct( $version, $file ) {
 		$this->version = $version;
 		$this->file    = $file;
 
@@ -18,10 +45,18 @@ class Frizzly_Client {
 		$this->add_actions();
 	}
 
+	/**
+	 *
+	 * Add actions.
+	 */
 	private function add_actions() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 	}
 
+	/**
+	 *
+	 * Load dependencies.
+	 */
 	private function load_dependencies() {
 		require_once 'includes/Frizzly_Consts.php';
 		require_once 'includes/Frizzly_Html_Element.php';
@@ -34,7 +69,11 @@ class Frizzly_Client {
 		$this->share_module = new Frizzly_Client_Share_Module();
 	}
 
-	function enqueue_scripts() {
+	/**
+	 *
+	 * Enqueue scripts.
+	 */
+	public function enqueue_scripts() {
 		$settings = $this->share_module->get_frontend_options();
 
 		$plugin_dir_url = plugin_dir_url( $this->file );

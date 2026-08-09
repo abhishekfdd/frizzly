@@ -1,5 +1,9 @@
 <?php
 /**
+ * Frizzly - Social Share Buttons.
+ *
+ * @package Frizzly
+ *
  * @wordpress-plugin
  * Plugin Name:       Frizzly - Social Share Buttons
  * Plugin URI:        http://confusedblogger.com/
@@ -22,10 +26,21 @@ if ( ! defined( 'WPINC' ) ) {
 
 if ( ! class_exists( 'Frizzly_Loader' ) ) :
 
+	/**
+	 * Frizzly Loader.
+	 */
 	final class Frizzly_Loader {
 
+		/**
+		 * Instance.
+		 *
+		 * @var mixed
+		 */
 		private static $instance;
 
+		/**
+		 * Instance.
+		 */
 		public static function instance() {
 			if ( ! isset( self::$instance ) ) {
 				self::$instance = new Frizzly_Loader();
@@ -33,26 +48,33 @@ if ( ! class_exists( 'Frizzly_Loader' ) ) :
 			return self::$instance;
 		}
 
+		/**
+		 * Constructor.
+		 */
 		private function __construct() {
 			require_once 'includes/Frizzly.php';
 			$version = '1.1.1';
 			$name    = 'Frizzly';
 			$frizzly = new Frizzly( $name, $version, __FILE__ );
 		}
-	}
 
-	function frizzly_activation_hook() {
-		// Bail if activating from network, or bulk.
-		// WordPress has already verified its own nonce to reach the activation hook.
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		if ( is_network_admin() || isset( $_GET['activate-multi'] ) ) {
-			return;
+		/**
+		 * Sets the transient that triggers the welcome-screen redirect on activation.
+		 */
+		public static function activation_hook() {
+			// Bail if activating from network, or bulk.
+			// WordPress has already verified its own nonce to reach the activation hook.
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			if ( is_network_admin() || isset( $_GET['activate-multi'] ) ) {
+				return;
+			}
+
+			set_transient( '_frizzly_activation_redirect', true, 30 );
 		}
-
-		set_transient( '_frizzly_activation_redirect', true, 30 );
 	}
-	register_activation_hook( __FILE__, 'frizzly_activation_hook' );
 
-endif; // End if class_exists check
+	register_activation_hook( __FILE__, array( 'Frizzly_Loader', 'activation_hook' ) );
+
+endif; // End if class_exists check.
 
 Frizzly_Loader::instance();

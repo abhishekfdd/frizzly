@@ -1,16 +1,57 @@
 <?php
+/**
+ * Frizzly Welcome Screen.
+ *
+ * @package Frizzly
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Frizzly Welcome Screen.
+ */
 class Frizzly_Welcome_Screen {
+	/**
+	 * Minimum capability.
+	 *
+	 * @var mixed
+	 */
 	private $minimum_capability = 'manage_options';
-	private $transient_name     = '_frizzly_activation_redirect';
+	/**
+	 * Transient name.
+	 *
+	 * @var mixed
+	 */
+	private $transient_name = '_frizzly_activation_redirect';
+	/**
+	 * Plugin name.
+	 *
+	 * @var mixed
+	 */
 	private $plugin_name;
+	/**
+	 * File.
+	 *
+	 * @var mixed
+	 */
 	private $file;
+	/**
+	 * Version.
+	 *
+	 * @var mixed
+	 */
 	private $version;
 
-	function __construct( $file, $version ) {
+	/**
+	 *
+	 * Constructor.
+	 *
+	 * @param mixed $file File.
+	 * @param mixed $version Version.
+	 */
+	public function __construct( $file, $version ) {
 		$this->file        = $file;
 		$this->version     = $version;
 		$this->plugin_name = 'Frizzly';
@@ -18,8 +59,12 @@ class Frizzly_Welcome_Screen {
 		add_action( 'admin_init', array( $this, 'redirect' ), 11 );
 	}
 
+	/**
+	 *
+	 * Admin menus.
+	 */
 	public function admin_menus() {
-		// About Page
+		// About page.
 		add_dashboard_page(
 			__( 'Welcome to Frizzly', 'frizzly' ),
 			__( 'Welcome to Frizzly', 'frizzly' ),
@@ -28,10 +73,14 @@ class Frizzly_Welcome_Screen {
 			array( $this, 'welcome_message' )
 		);
 
-		// Now remove them from the menus so plugins that allow customizing the admin menu don't show them
+		// Now remove them from the menus so plugins that allow customizing the admin menu don't show them.
 		remove_submenu_page( 'index.php', 'frizzly-welcome' );
 	}
 
+	/**
+	 *
+	 * Welcome message.
+	 */
 	public function welcome_message() {
 		?>
 		<div class="wrap about-wrap">
@@ -258,6 +307,10 @@ class Frizzly_Welcome_Screen {
 		<?php
 	}
 
+	/**
+	 *
+	 * Redirect.
+	 */
 	public function redirect() {
 		if ( ! get_transient( $this->transient_name ) ) {
 			return;

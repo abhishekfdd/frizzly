@@ -1,25 +1,80 @@
 <?php
+/**
+ * Frizzly Admin Settings Screen.
+ *
+ * @package Frizzly
+ */
 
+/**
+ * Frizzly Admin Settings Screen.
+ */
 class Frizzly_Admin_Settings_Screen {
 
 	/**
+	 * Share module.
+	 *
 	 * @var Frizzly_Admin_Share_Module
 	 */
 	private $share_module;
 
 	/**
+	 * Ajax custom action.
+	 *
 	 * @var string
 	 */
 	private $ajax_custom_action;
+	/**
+	 * Save settings action.
+	 *
+	 * @var mixed
+	 */
 	private $save_settings_action;
+	/**
+	 * Save settings tab.
+	 *
+	 * @var mixed
+	 */
 	private $save_settings_tab;
+	/**
+	 * Name.
+	 *
+	 * @var mixed
+	 */
 	private $name;
+	/**
+	 * File.
+	 *
+	 * @var mixed
+	 */
 	private $file;
+	/**
+	 * Version.
+	 *
+	 * @var mixed
+	 */
 	private $version;
+	/**
+	 * Screen hook.
+	 *
+	 * @var mixed
+	 */
 	private $screen_hook;
+	/**
+	 * Page base.
+	 *
+	 * @var mixed
+	 */
 	private $page_base;
 
-	function __construct( $name, $version, $file, $admin_modules ) {
+	/**
+	 *
+	 * Constructor.
+	 *
+	 * @param mixed $name Name.
+	 * @param mixed $version Version.
+	 * @param mixed $file File.
+	 */
+	public function __construct( $name, $version, $file ) {
 		$this->ajax_custom_action   = 'frizzly_settings_custom';
 		$this->save_settings_action = 'frizzly_settings_save';
 		$this->save_settings_tab    = 'frizzly_settings_save_tab';
@@ -31,7 +86,11 @@ class Frizzly_Admin_Settings_Screen {
 		$this->screen_hook          = '';
 	}
 
-	function init() {
+	/**
+	 *
+	 * Init.
+	 */
+	public function init() {
 		add_action( 'admin_init', array( $this, 'save_settings' ) );
 		add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
@@ -41,7 +100,11 @@ class Frizzly_Admin_Settings_Screen {
 		add_filter( "plugin_action_links_$basename", array( $this, 'add_settings_link' ) );
 	}
 
-	function add_admin_menu() {
+	/**
+	 *
+	 * Add admin menu.
+	 */
+	public function add_admin_menu() {
 		$this->screen_hook = add_options_page(
 			$this->name,
 			$this->name,
@@ -51,14 +114,26 @@ class Frizzly_Admin_Settings_Screen {
 		);
 	}
 
-	function add_settings_link( $links ) {
+	/**
+	 *
+	 * Add settings link.
+	 *
+	 * @param mixed $links Links.
+	 */
+	public function add_settings_link( $links ) {
 		$url  = admin_url( 'options-general.php?page=' . $this->page_base );
 		$link = sprintf( '<a href="%s">%s</a>', $url, __( 'Settings', 'frizzly' ) );
 		array_unshift( $links, $link );
 		return $links;
 	}
 
-	function enqueue_admin_scripts( $hook ) {
+	/**
+	 *
+	 * Enqueue admin scripts.
+	 *
+	 * @param mixed $hook Hook.
+	 */
+	public function enqueue_admin_scripts( $hook ) {
 		if ( $this->screen_hook !== $hook ) {
 			return;
 		}
@@ -121,7 +196,11 @@ class Frizzly_Admin_Settings_Screen {
 		wp_enqueue_media();
 	}
 
-	function print_settings_page() {
+	/**
+	 *
+	 * Print settings page.
+	 */
+	public function print_settings_page() {
 		?>
 		<div ng-app="app" class="wrap">
 			<h2><?php esc_html_e( 'Frizzly', 'frizzly' ); ?></h2>
@@ -130,7 +209,11 @@ class Frizzly_Admin_Settings_Screen {
 		<?php
 	}
 
-	function ajax_custom() {
+	/**
+	 *
+	 * Ajax custom.
+	 */
+	public function ajax_custom() {
 		check_ajax_referer( $this->ajax_custom_action, 'nonce' );
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die();
@@ -147,7 +230,11 @@ class Frizzly_Admin_Settings_Screen {
 		wp_send_json( $result );
 	}
 
-	function save_settings() {
+	/**
+	 *
+	 * Save settings.
+	 */
+	public function save_settings() {
 		$return_condition = ! isset( $_POST[ $this->save_settings_action ] ) ||
 							! wp_verify_nonce(
 								sanitize_text_field( wp_unslash( $_POST[ $this->save_settings_action ] ) ),
@@ -171,7 +258,11 @@ class Frizzly_Admin_Settings_Screen {
 		$this->share_module->save_settings( $tab, wp_unslash( $_POST ) );
 	}
 
-	function show_notices() {
+	/**
+	 *
+	 * Show notices.
+	 */
+	public function show_notices() {
 		$screen            = get_current_screen();
 		$is_current_screen = $this->screen_hook === $screen->id;
 		$this->share_module->show_notices( $is_current_screen );

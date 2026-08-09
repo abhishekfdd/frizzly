@@ -1,19 +1,32 @@
 <?php
+/**
+ * Frizzly Client General Submodule.
+ *
+ * @package Frizzly
+ */
 
+/**
+ * Frizzly Client General Submodule.
+ */
 class Frizzly_Client_General_Submodule extends Frizzly_Client_Submodule {
 
 	/**
+	 *
 	 * Frizzly_Client_General_Submodule constructor.
 	 *
-	 * @param $option Frizzly_Options
+	 * @param mixed $option Frizzly_Options.
 	 */
-	function __construct( $option ) {
+	public function __construct( $option ) {
 		parent::__construct( 'general', $option );
 
 		add_action( 'wp_head', array( $this, 'action_head' ) );
 	}
 
-	function action_head() {
+	/**
+	 *
+	 * Action head.
+	 */
+	public function action_head() {
 		if ( is_feed() || ( ! is_single() && ! is_page() ) ) {
 			return;
 		}
@@ -31,11 +44,19 @@ class Frizzly_Client_General_Submodule extends Frizzly_Client_Submodule {
 		}
 	}
 
-	function is_active() {
+	/**
+	 *
+	 * Is active.
+	 */
+	public function is_active() {
 		return true;
 	}
 
-	function get_i18n() {
+	/**
+	 *
+	 * Get i18n.
+	 */
+	public function get_i18n() {
 		$sharer_action_name = 'frizzly_share_by_email';
 
 		return array(

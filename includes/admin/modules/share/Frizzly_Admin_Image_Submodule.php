@@ -1,20 +1,36 @@
 <?php
+/**
+ * Frizzly Admin Image Submodule.
+ *
+ * @package Frizzly
+ */
 
+/**
+ * Frizzly Admin Image Submodule.
+ */
 class Frizzly_Admin_Image_Submodule extends Frizzly_Admin_Button_Settings_Submodule_Base {
 
-	function __construct() {
+	/**
+	 *
+	 * Constructor.
+	 */
+	public function __construct() {
 		parent::__construct( 'image', __( 'Image', 'frizzly' ) );
 	}
 
-	function get_page_settings( $db_value ) {
+	/**
+	 *
+	 * Get page settings.
+	 *
+	 * @param mixed $db_value Db value.
+	 */
+	public function get_page_settings( $db_value ) {
 		$settings = parent::get_page_settings( $db_value );
 
 		$settings['show'] = array(
 			'key'     => 'show',
 			'options' => array(
 				'hover' => __( 'on hover', 'frizzly' ),
-		// 'touch'  => __( 'always on touch devices, hover on desktop', 'frizzly' ),
-		// 'always' => __( 'always', 'frizzly' )
 			),
 			'type'    => 'select',
 		);
@@ -121,7 +137,11 @@ class Frizzly_Admin_Image_Submodule extends Frizzly_Admin_Button_Settings_Submod
 		return $settings;
 	}
 
-	function get_page_i18n() {
+	/**
+	 *
+	 * Get page i18n.
+	 */
+	public function get_page_i18n() {
 		$parent_i18n = parent::get_page_i18n();
 		$new_i18n    = array(
 			'module_description'         => __( 'Image module shows share icons on your images.', 'frizzly' ),

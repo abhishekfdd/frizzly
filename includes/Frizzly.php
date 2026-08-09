@@ -1,13 +1,49 @@
 <?php
+/**
+ * Frizzly.
+ *
+ * @package Frizzly
+ */
 
+/**
+ * Frizzly.
+ */
 class Frizzly {
 
+	/**
+	 * Admin.
+	 *
+	 * @var mixed
+	 */
 	private $admin;
+	/**
+	 * Name.
+	 *
+	 * @var mixed
+	 */
 	private $name;
+	/**
+	 * Version.
+	 *
+	 * @var mixed
+	 */
 	private $version;
+	/**
+	 * File.
+	 *
+	 * @var mixed
+	 */
 	private $file;
 
-	function __construct( $name, $version, $file ) {
+	/**
+	 *
+	 * Constructor.
+	 *
+	 * @param mixed $name Name.
+	 * @param mixed $version Version.
+	 * @param mixed $file File.
+	 */
+	public function __construct( $name, $version, $file ) {
 		$this->name    = $name;
 		$this->version = $version;
 		$this->file    = $file;
@@ -16,6 +52,10 @@ class Frizzly {
 		add_action( 'plugins_loaded', array( $this, 'update_plugin' ) );
 	}
 
+	/**
+	 *
+	 * Load dependencies.
+	 */
 	private function load_dependencies() {
 		require_once 'includes/Frizzly_Includes.php';
 		new Frizzly_Includes();
@@ -33,7 +73,11 @@ class Frizzly {
 		}
 	}
 
-	function update_plugin() {
+	/**
+	 *
+	 * Update plugin.
+	 */
+	public function update_plugin() {
 		$updater = new Frizzly_Version_Updater( $this->version );
 		$updater->update();
 	}

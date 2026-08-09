@@ -1,12 +1,26 @@
 <?php
+/**
+ * Frizzly Includes.
+ *
+ * @package Frizzly
+ */
 
+/**
+ * Frizzly Includes.
+ */
 class Frizzly_Includes {
 
-	function __construct() {
+	/**
+	 * Constructor.
+	 */
+	public function __construct() {
 		$this->load_dependencies();
 	}
 
-	function load_dependencies() {
+	/**
+	 * Load dependencies.
+	 */
+	public function load_dependencies() {
 		require_once 'options/Frizzly_Options.php';
 		require_once 'options/Frizzly_Share_Options.php';
 		require_once 'meta/Frizzly_Meta.php';

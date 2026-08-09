@@ -1,40 +1,97 @@
 <?php
+/**
+ * Frizzly Ajax Result Builder.
+ *
+ * @package Frizzly
+ */
 
+/**
+ * Frizzly Ajax Result Builder.
+ */
 class Frizzly_Ajax_Result_Builder {
 
+	/**
+	 * Model.
+	 *
+	 * @var mixed
+	 */
 	private $model;
+	/**
+	 * Status.
+	 *
+	 * @var mixed
+	 */
 	private $status;
+	/**
+	 * Messages.
+	 *
+	 * @var mixed
+	 */
 	private $messages;
 
-	function __construct() {
+	/**
+	 *
+	 * Constructor.
+	 */
+	public function __construct() {
 		$this->model    = null;
 		$this->messages = array();
 		$this->status   = 'OK';
 	}
 
-	function set_model( $model ) {
+	/**
+	 *
+	 * Set model.
+	 *
+	 * @param mixed $model Model.
+	 */
+	public function set_model( $model ) {
 		$this->model = $model;
 		return $this;
 	}
 
-	function set_error( $error_msg, $error_msg_id = 'error' ) {
+	/**
+	 *
+	 * Set error.
+	 *
+	 * @param mixed  $error_msg Error msg.
+	 * @param string $error_msg_id Error msg id.
+	 */
+	public function set_error( $error_msg, $error_msg_id = 'error' ) {
 		$arr                  = array();
 		$arr[ $error_msg_id ] = $error_msg;
 		return $this->set_errors( $arr );
 	}
 
-	function set_errors( $errors ) {
+	/**
+	 *
+	 * Set errors.
+	 *
+	 * @param mixed $errors Errors.
+	 */
+	public function set_errors( $errors ) {
 		$this->status   = 'ERROR';
 		$this->messages = $errors;
 		return $this;
 	}
 
-	function set_message( $msg, $msg_id = 'ok' ) {
+	/**
+	 *
+	 * Set message.
+	 *
+	 * @param mixed  $msg Msg.
+	 * @param string $msg_id Msg id.
+	 */
+	public function set_message( $msg, $msg_id = 'ok' ) {
 		$this->messages = array( $msg_id => $msg );
 		return $this;
 	}
 
-	function build() {
+	/**
+	 *
+	 * Build.
+	 */
+	public function build() {
 		$res = array(
 			'status' => array(
 				'status'   => $this->status,
@@ -42,7 +99,7 @@ class Frizzly_Ajax_Result_Builder {
 			),
 		);
 
-		if ( $this->model != null ) {
+		if ( null !== $this->model ) {
 			$res['model'] = $this->model;
 		}
 

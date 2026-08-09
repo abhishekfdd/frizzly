@@ -1,13 +1,38 @@
 <?php
+/**
+ * Frizzly Button Generator.
+ *
+ * @package Frizzly
+ */
 
+/**
+ * Frizzly Button Generator.
+ */
 class Frizzly_Button_Generator {
+	/**
+	 * Options.
+	 *
+	 * @var mixed
+	 */
 	private $options;
 
-	function __construct( $options = array() ) {
+	/**
+	 *
+	 * Constructor.
+	 *
+	 * @param array $options Options.
+	 */
+	public function __construct( $options = array() ) {
 		$this->options = $options;
 	}
 
-	function get_html( $post_id ) {
+	/**
+	 *
+	 * Get html.
+	 *
+	 * @param mixed $post_id Post id.
+	 */
+	public function get_html( $post_id ) {
 		$data_provider = new Frizzly_Social_Data_Provider( $post_id );
 		$div_classes   = array(
 			'frizzly-content',
@@ -42,7 +67,15 @@ class Frizzly_Button_Generator {
 		return $container->get_html();
 	}
 
-	function get_attributes( $network, $post_id, $additional_data ) {
+	/**
+	 *
+	 * Get attributes.
+	 *
+	 * @param mixed $network Network.
+	 * @param mixed $post_id Post id.
+	 * @param mixed $additional_data Additional data.
+	 */
+	public function get_attributes( $network, $post_id, $additional_data ) {
 		switch ( $network ) {
 			case 'pinterest':
 				if ( ! isset( $additional_data['image'] ) || false === $additional_data['image'] ) {
@@ -57,7 +90,13 @@ class Frizzly_Button_Generator {
 		}
 	}
 
-	function get_network_class( $network ) {
+	/**
+	 *
+	 * Get network class.
+	 *
+	 * @param mixed $network Network.
+	 */
+	public function get_network_class( $network ) {
 		switch ( $network ) {
 			case 'email':
 				return 'fa-envelope-o';
@@ -68,6 +107,12 @@ class Frizzly_Button_Generator {
 		}
 	}
 
+	/**
+	 *
+	 * Get target attribute.
+	 *
+	 * @param mixed $network Network.
+	 */
 	private function get_target_attribute( $network ) {
 		switch ( $network ) {
 			case 'email':
@@ -77,6 +122,10 @@ class Frizzly_Button_Generator {
 		}
 	}
 
+	/**
+	 *
+	 * Get align class.
+	 */
 	private function get_align_class() {
 		$align = array_key_exists( 'align', $this->options ) ? $this->options['align'] : '';
 		switch ( $align ) {

@@ -1,28 +1,80 @@
 <?php
+/**
+ * Frizzly Admin Post Edit Screen.
+ *
+ * @package Frizzly
+ */
 
+/**
+ * Frizzly Admin Post Edit Screen.
+ */
 class Frizzly_Admin_Post_Edit_Screen {
 
+	/**
+	 * Name.
+	 *
+	 * @var mixed
+	 */
 	private $name;
+	/**
+	 * File.
+	 *
+	 * @var mixed
+	 */
 	private $file;
+	/**
+	 * Meta nonce name.
+	 *
+	 * @var mixed
+	 */
 	private $meta_nonce_name;
 	/**
+	 * Meta.
+	 *
 	 * @var Frizzly_Meta_Social_Data
 	 */
 	private $meta;
+	/**
+	 * Networks.
+	 *
+	 * @var mixed
+	 */
 	private $networks;
+	/**
+	 * Version.
+	 *
+	 * @var mixed
+	 */
 	private $version;
+	/**
+	 * Screen hooks.
+	 *
+	 * @var mixed
+	 */
 	private $screen_hooks;
 	/**
+	 * Share options.
+	 *
 	 * @var Frizzly_Share_Options
 	 */
 	private $share_options;
 
 	/**
+	 * Meta submodules.
+	 *
 	 * @var string[]
 	 */
 	private $meta_submodules;
 
-	function __construct( $name, $version, $file ) {
+	/**
+	 *
+	 * Constructor.
+	 *
+	 * @param mixed $name Name.
+	 * @param mixed $version Version.
+	 * @param mixed $file File.
+	 */
+	public function __construct( $name, $version, $file ) {
 		$this->name            = $name;
 		$this->version         = $version;
 		$this->file            = $file;
@@ -42,7 +94,14 @@ class Frizzly_Admin_Post_Edit_Screen {
 		);
 	}
 
-	function add_meta_box( $post_type, $post ) {
+	/**
+	 *
+	 * Add meta box.
+	 *
+	 * @param mixed $post_type Post type.
+	 * @param mixed $post Post.
+	 */
+	public function add_meta_box( $post_type, $post ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter -- Signature is fixed by the add_meta_boxes action.
 		add_meta_box(
 			'frizzly-post-meta',
 			__( 'Frizzly Post Specific Settings', 'frizzly' ),
@@ -51,13 +110,23 @@ class Frizzly_Admin_Post_Edit_Screen {
 		);
 	}
 
-	function init() {
+	/**
+	 *
+	 * Init.
+	 */
+	public function init() {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ), 10, 2 );
 		add_action( 'save_post', array( $this, 'save_meta' ), 10, 3 );
 	}
 
-	function enqueue_admin_scripts( $hook ) {
+	/**
+	 *
+	 * Enqueue admin scripts.
+	 *
+	 * @param mixed $hook Hook.
+	 */
+	public function enqueue_admin_scripts( $hook ) {
 		if ( ! in_array( $hook, $this->screen_hooks, true ) ) {
 			return;
 		}
@@ -76,7 +145,11 @@ class Frizzly_Admin_Post_Edit_Screen {
 		wp_enqueue_style( 'frizzly-meta-css', $plugin_dir_url . 'css/frizzly.meta.css', array(), $this->version );
 	}
 
-	function render_meta() {
+	/**
+	 *
+	 * Render meta.
+	 */
+	public function render_meta() {
 		global $post;
 		$id                     = $post->ID;
 		$meta                   = $this->meta->get( $id );
@@ -107,7 +180,13 @@ class Frizzly_Admin_Post_Edit_Screen {
 		<?php
 	}
 
-	function render_general_tab( $id ) {
+	/**
+	 *
+	 * Render general tab.
+	 *
+	 * @param mixed $id Id.
+	 */
+	public function render_general_tab( $id ) {
 		$share_options      = $this->share_options->get();
 		$enabled_submodules = array();
 		foreach ( $this->meta_submodules as $sub_slug => $sub_name ) {
@@ -138,7 +217,16 @@ class Frizzly_Admin_Post_Edit_Screen {
 		<?php
 	}
 
-	function render_network_tab( $network_slug, $network_name, $meta, $featured_image_size = null ) {
+	/**
+	 *
+	 * Render network tab.
+	 *
+	 * @param mixed $network_slug Network slug.
+	 * @param mixed $network_name Network name.
+	 * @param mixed $meta Meta.
+	 * @param mixed $featured_image_size Featured image size.
+	 */
+	public function render_network_tab( $network_slug, $network_name, $meta, $featured_image_size = null ) {
 		?>
 		<p class="description">
 		<?php
@@ -249,7 +337,15 @@ class Frizzly_Admin_Post_Edit_Screen {
 		<?php
 	}
 
-	function render_pinterest_rows( $network_slug, $network_name, $meta ) {
+	/**
+	 *
+	 * Render pinterest rows.
+	 *
+	 * @param mixed $network_slug Network slug.
+	 * @param mixed $network_name Network name.
+	 * @param mixed $meta Meta.
+	 */
+	public function render_pinterest_rows( $network_slug, $network_name, $meta ) {
 		?>
 		<tr>
 			<th>
@@ -288,7 +384,15 @@ class Frizzly_Admin_Post_Edit_Screen {
 		<?php
 	}
 
-	function save_meta( $post_id, $post, $update ) {
+	/**
+	 *
+	 * Save meta.
+	 *
+	 * @param mixed $post_id Post id.
+	 * @param mixed $post Post.
+	 * @param mixed $update Update.
+	 */
+	public function save_meta( $post_id, $post, $update ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter -- Signature is fixed by the save_post action.
 		$return_if = ( ! current_user_can( 'edit_post', $post_id ) ) ||
 					( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) ||
 					( ! isset( $_POST[ $this->meta_nonce_name ] ) ) ||
@@ -301,7 +405,13 @@ class Frizzly_Admin_Post_Edit_Screen {
 		$this->save_meta_general( $post_id );
 	}
 
-	function save_meta_general( $post_id ) {
+	/**
+	 *
+	 * Save meta general.
+	 *
+	 * @param mixed $post_id Post id.
+	 */
+	public function save_meta_general( $post_id ) {
 		$options = $this->share_options->get();
 		foreach ( $this->meta_submodules as $sub_slug => $sub_name ) {
 			// Nonce is verified in save_meta(), the only caller of this method.
@@ -326,7 +436,13 @@ class Frizzly_Admin_Post_Edit_Screen {
 		$this->share_options->update( $options );
 	}
 
-	function save_meta_network_tabs( $post_id ) {
+	/**
+	 *
+	 * Save meta network tabs.
+	 *
+	 * @param mixed $post_id Post id.
+	 */
+	public function save_meta_network_tabs( $post_id ) {
 		$settings = array(
 			'facebook'  => $this->get_network_settings( 'facebook' ),
 			'twitter'   => $this->get_network_settings( 'twitter' ),
@@ -335,7 +451,13 @@ class Frizzly_Admin_Post_Edit_Screen {
 		$this->meta->update( $post_id, $settings );
 	}
 
-	function get_network_settings( $network_name ) {
+	/**
+	 *
+	 * Get network settings.
+	 *
+	 * @param mixed $network_name Network name.
+	 */
+	public function get_network_settings( $network_name ) {
 		$title_name       = sprintf( 'frizzly_%s_title', $network_name );
 		$description_name = sprintf( 'frizzly_%s_description', $network_name );
 		$image_name       = sprintf( 'frizzly_%s_image', $network_name );

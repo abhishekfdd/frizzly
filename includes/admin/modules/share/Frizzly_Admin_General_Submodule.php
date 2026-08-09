@@ -1,17 +1,38 @@
 <?php
+/**
+ * Frizzly Admin General Submodule.
+ *
+ * @package Frizzly
+ */
 
+/**
+ * Frizzly Admin General Submodule.
+ */
 class Frizzly_Admin_General_Submodule extends Frizzly_Admin_Submodule {
 
+	/**
+	 * Nag no active modules.
+	 *
+	 * @var mixed
+	 */
 	private $nag_no_active_modules;
 
-	function __construct() {
+	/**
+	 *
+	 * Constructor.
+	 */
+	public function __construct() {
 		parent::__construct( 'general', __( 'General', 'frizzly' ) );
 		$this->nag_no_active_modules = 'frizzly_nag_no_active_modules';
 
 		add_action( 'admin_init', array( $this, 'hide_nag_no_active_modules' ) );
 	}
 
-	function hide_nag_no_active_modules() {
+	/**
+	 *
+	 * Hide nag no active modules.
+	 */
+	public function hide_nag_no_active_modules() {
 		// Dismissing the nag only sets a per-user display preference; no nonce applies.
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( ! isset( $_GET[ $this->nag_no_active_modules ] ) ) {
@@ -23,7 +44,11 @@ class Frizzly_Admin_General_Submodule extends Frizzly_Admin_Submodule {
 		exit;
 	}
 
-	function get_page_i18n() {
+	/**
+	 *
+	 * Get page i18n.
+	 */
+	public function get_page_i18n() {
 		return array(
 			'active_modules_title'      => __( 'Active modules', 'frizzly' ),
 			'modules_title'             => __( 'Modules settings', 'frizzly' ),
@@ -39,7 +64,13 @@ class Frizzly_Admin_General_Submodule extends Frizzly_Admin_Submodule {
 		);
 	}
 
-	function get_page_settings( $db_value ) {
+	/**
+	 *
+	 * Get page settings.
+	 *
+	 * @param mixed $db_value Db value.
+	 */
+	public function get_page_settings( $db_value ) {
 		$settings = array();
 
 		/* MODULES */
@@ -118,7 +149,14 @@ class Frizzly_Admin_General_Submodule extends Frizzly_Admin_Submodule {
 		return $settings;
 	}
 
-	function show_notice( $is_current_settings_screen, $share_options ) {
+	/**
+	 *
+	 * Show notice.
+	 *
+	 * @param mixed $is_current_settings_screen Is current settings screen.
+	 * @param mixed $share_options Share options.
+	 */
+	public function show_notice( $is_current_settings_screen, $share_options ) {
 		$active_modules = $share_options['general']['active_image'] || $share_options['general']['active_content'];
 		if ( $active_modules ) {
 			return;
@@ -134,6 +172,10 @@ class Frizzly_Admin_General_Submodule extends Frizzly_Admin_Submodule {
 		}
 	}
 
+	/**
+	 *
+	 * Show nag no active modules.
+	 */
 	private function show_nag_no_active_modules() {
 		global $current_user, $pagenow;
 		$meta = get_user_meta( $current_user->ID, $this->nag_no_active_modules, true );

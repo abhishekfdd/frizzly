@@ -1,18 +1,39 @@
 <?php
+/**
+ * Frizzly Client Share Module.
+ *
+ * @package Frizzly
+ */
 
+/**
+ * Frizzly Client Share Module.
+ */
 class Frizzly_Client_Share_Module {
 
 	/**
+	 * Option.
+	 *
 	 * @var Frizzly_Share_Options
 	 */
 	protected $option;
 	/**
+	 * Submodules.
+	 *
 	 * @var Frizzly_Client_Submodule[]
 	 */
 	protected $submodules;
+	/**
+	 * Slug.
+	 *
+	 * @var mixed
+	 */
 	protected $slug;
 
-	function __construct() {
+	/**
+	 *
+	 * Constructor.
+	 */
+	public function __construct() {
 		$this->option     = new Frizzly_Share_Options();
 		$this->slug       = 'share';
 		$this->submodules = array();
@@ -21,21 +42,28 @@ class Frizzly_Client_Share_Module {
 	}
 
 	/**
-	 * @param $submodule Frizzly_Client_Submodule
+	 * Add submodule.
+	 *
+	 * @param mixed $submodule Frizzly_Client_Submodule.
 	 */
-	function add_submodule( $submodule ) {
+	public function add_submodule( $submodule ) {
 		$this->submodules[ $submodule->slug ] = $submodule;
 	}
 
-	function get_options() {
+	/**
+	 *
+	 * Get options.
+	 */
+	public function get_options() {
 		return $this->option->get();
 	}
 
 	/**
+	 * Returns the option value from the database with i18n added to each submodule.
+	 *
 	 * @return array
-	 * Returns option value from the database with internationalization added to each submodule
 	 */
-	function get_frontend_options() {
+	public function get_frontend_options() {
 		$result = $this->get_options();
 		$subs   = $this->get_active_submodules();
 		foreach ( $subs as $slug => $module ) {
@@ -46,10 +74,18 @@ class Frizzly_Client_Share_Module {
 		return $result;
 	}
 
-	function get_slug() {
+	/**
+	 *
+	 * Get slug.
+	 */
+	public function get_slug() {
 		return $this->slug;
 	}
 
+	/**
+	 *
+	 * Load dependencies.
+	 */
 	private function load_dependencies() {
 		require_once 'share/Frizzly_Link_Generator.php';
 		require_once 'share/Frizzly_Button_Generator.php';
@@ -58,6 +94,10 @@ class Frizzly_Client_Share_Module {
 		require_once 'share/Frizzly_Client_Content_Submodule.php';
 	}
 
+	/**
+	 *
+	 * Add submodules.
+	 */
 	private function add_submodules() {
 		$this->add_submodule( new Frizzly_Client_General_Submodule( $this->option ) );
 		$this->add_submodule( new Frizzly_Client_Image_Submodule( $this->option ) );
@@ -65,9 +105,11 @@ class Frizzly_Client_Share_Module {
 	}
 
 	/**
+	 * Get active submodules.
+	 *
 	 * @return Frizzly_Client_Submodule[]
 	 */
-	function get_active_submodules() {
+	public function get_active_submodules() {
 		$modules = array();
 		foreach ( $this->submodules as $submodule ) {
 			if ( $submodule->is_active() ) {

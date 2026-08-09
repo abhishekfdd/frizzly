@@ -1,14 +1,38 @@
 <?php
+/**
+ * Frizzly Client Twitter Meta Tags.
+ *
+ * @package Frizzly
+ */
 
+/**
+ * Frizzly Client Twitter Meta Tags.
+ */
 class Frizzly_Client_Twitter_Meta_Tags {
 
+	/**
+	 * Network name.
+	 *
+	 * @var mixed
+	 */
 	private $network_name;
 
-	function __construct() {
+	/**
+	 *
+	 * Constructor.
+	 */
+	public function __construct() {
 		$this->network_name = 'twitter';
 	}
 
-	function print_tags( $post_id, $options ) {
+	/**
+	 *
+	 * Print tags.
+	 *
+	 * @param mixed $post_id Post id.
+	 * @param mixed $options Options.
+	 */
+	public function print_tags( $post_id, $options ) {
 		$provider = new Frizzly_Social_Data_Provider( $post_id );
 		$elements = new Frizzly_Meta_Elements();
 		$elements
