@@ -1,5 +1,5 @@
 === Frizzly - Social Share Buttons ===
-Contributors: abhishekfdd
+Contributors: mrsztuczkens, abhishekfdd
 Tags: share, share button, Facebook, twitter, pinterest, linkedin, bookmark, Share, share this, sharing, social, socialize, pin it, button, image, images, pinit, social media, hover, photo, photos
 Requires at least: 3.5
 Tested up to: 5.5.3
@@ -18,6 +18,7 @@ Features:
 * add share icons over images (especially useful for websites that use images extensively)
 * choose only share buttons that you need
 * don't show share buttons on certain pages (e.g. your home page)
+
 == Frequently Asked Questions ==
 
 = Where do I report bugs, improvements and suggestions? =
