@@ -1,7 +1,7 @@
 === Frizzly - Social Share Buttons ===
 Contributors: abhishekfdd
 Tags: share buttons, social sharing, pinterest, twitter, facebook
-Requires at least: 6.5
+Requires at least: 4.7
 Tested up to: 7.0
 Stable tag: 1.1.1
 License: GPLv2 or later
