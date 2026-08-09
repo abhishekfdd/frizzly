@@ -88,9 +88,19 @@ class Frizzly_Share_By_Email_Ajax_Handler extends Frizzly_Ajax_Handler {
 		if ( 'www.' === substr( $sitename, 0, 4 ) ) {
 			$sitename = substr( $sitename, 4 );
 		}
-		$local_email = apply_filters( 'wp_mail_from', 'wordpress@' . $sitename );
-		$headers[]   = sprintf( 'From: %1$s <%2$s>', $from_name, $local_email );
-		$headers[]   = sprintf( 'Reply-To: %1$s <%2$s>', $from_name, $from_email );
+
+		/*
+		 * Deliberately not passed through the core `wp_mail_from` filter here: wp_mail()
+		 * applies that filter to whatever From address it ends up with, including one
+		 * supplied via a header (wp-includes/pluggable.php - the apply_filters() call
+		 * sits outside the `if ( ! isset( $from_email ) )` block). Applying it here too
+		 * would run every listener twice.
+		 */
+		$local_email = 'wordpress@' . $sitename;
+
+		$headers   = array();
+		$headers[] = sprintf( 'From: %1$s <%2$s>', $from_name, $local_email );
+		$headers[] = sprintf( 'Reply-To: %1$s <%2$s>', $from_name, $from_email );
 		wp_mail( $to_email, '[' . __( 'Shared Post', 'frizzly' ) . '] ' . $post_title, $content, $headers );
 	}
 
