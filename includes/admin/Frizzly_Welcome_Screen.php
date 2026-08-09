@@ -227,29 +227,7 @@ class Frizzly_Welcome_Screen {
 				<p class="lead-description"><?php esc_html_e( 'If you\'re stuck and can\'t get the plugin to work the way you want it to, get help!', 'frizzly' ); ?></p>
 			</div>
 
-			<div class="feature-section two-col">
-				<div class="col">
-					<h3><?php esc_html_e( 'Documentation', 'frizzly' ); ?></h3>
-					<p>
-					<?php
-					printf(
-						wp_kses(
-							/* translators: %s: documentation URL */
-							__( 'If you are having difficulties with some aspects of the plugin, the first place to look for help is <a href="%s" target="_blank">the documentation</a> of the plugin. Chances are you will find what you are looking for there. If something is not covered in the documentation, use the support forum.', 'frizzly' ),
-							array(
-								'a' => array(
-									'href'   => array(),
-									'class'  => array(),
-									'target' => array(),
-								),
-								'b' => array(),
-							)
-						),
-						esc_url( 'https://highfiveplugins.com/frizzly/frizzly-documentation/' )
-					);
-					?>
-						</p>
-				</div>
+			<div class="feature-section one-col">
 				<div class="col">
 					<h3><?php esc_html_e( 'Support', 'frizzly' ); ?></h3>
 					<p>

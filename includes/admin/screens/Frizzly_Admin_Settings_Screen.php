@@ -174,10 +174,6 @@ class Frizzly_Admin_Settings_Screen {
 					'editor' => $this->share_module->get_page_i18n( $tab ),
 					'links'  => array(
 						array(
-							'name' => __( 'Documentation', 'frizzly' ),
-							'url'  => 'https://highfiveplugins.com/frizzly/frizzly-documentation/',
-						),
-						array(
 							'name' => __( 'Support', 'frizzly' ),
 							'url'  => 'https://wordpress.org/support/plugin/frizzly',
 						),
