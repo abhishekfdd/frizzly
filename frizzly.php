@@ -6,11 +6,11 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Frizzly - Social Share Buttons
- * Plugin URI:        http://confusedblogger.com/
+ * Plugin URI:        https://confusedblogger.com/
  * Description:       Great-looking social share icons all over your website.
  * Version:           1.1.1
  * Author:            Abhishek Kumar
- * Author URI:        http://confusedblogger.com/
+ * Author URI:        https://confusedblogger.com/
  * Text Domain:       frizzly
  * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html

@@ -24,6 +24,21 @@ Features:
 = Where do I report bugs, improvements and suggestions? =
 Please report them in the plugin's [support forum on WordPress.org](https://wordpress.org/support/plugin/frizzly).
 
+= Is the JavaScript in this plugin minified or obfuscated? =
+No. `js/frizzly.client.js`, `js/frizzly.admin.js` and `js/frizzly.meta.js` are Browserify bundles, shipped unminified and unobfuscated. Every module is included inline in readable form, with its original relative path recorded in the bundle's dependency map, so the full source of the plugin's own code is present in the download and can be read and audited directly. The original build toolchain is being restored so that a separate source tree and build configuration can ship alongside the bundles in a future release.
+
+== Third-party libraries ==
+
+This plugin bundles the following libraries, all under GPL-compatible licenses:
+
+* Font Awesome 4.6.3 - font under SIL OFL 1.1, CSS under MIT - https://fontawesome.com
+* AngularJS 1.5.8 and ngSanitize - MIT - https://angularjs.org
+* angular-tooltips - MIT
+* angular-drag-and-drop-lists - MIT
+* jquery-modal - MIT
+
+The image attribute handling in the image module is adapted from the Photo Protect plugin, and the attachment-ID-by-URL helper is adapted from a snippet by Frankie Jarrett; both are credited in the source.
+
 == Screenshots ==
 1. Share buttons on hover.
 2. Share buttons after post.
