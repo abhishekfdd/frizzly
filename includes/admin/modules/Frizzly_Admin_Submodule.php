@@ -23,7 +23,6 @@ abstract class Frizzly_Admin_Submodule {
 	public $slug;
 
 	/**
-	 *
 	 * Constructor.
 	 *
 	 * @param mixed $slug Slug.
@@ -35,7 +34,6 @@ abstract class Frizzly_Admin_Submodule {
 	}
 
 	/**
-	 *
 	 * Get page i18n.
 	 */
 	public function get_page_i18n() {
@@ -43,7 +41,6 @@ abstract class Frizzly_Admin_Submodule {
 	}
 
 	/**
-	 *
 	 * Get page settings.
 	 *
 	 * @param mixed $db_value Db value.
@@ -51,7 +48,6 @@ abstract class Frizzly_Admin_Submodule {
 	abstract public function get_page_settings( $db_value );
 
 	/**
-	 *
 	 * Is current tab.
 	 */
 	public function is_current_tab() {
@@ -63,7 +59,6 @@ abstract class Frizzly_Admin_Submodule {
 	}
 
 	/**
-	 *
 	 * Is current tab or empty.
 	 */
 	public function is_current_tab_or_empty() {
@@ -72,7 +67,6 @@ abstract class Frizzly_Admin_Submodule {
 	}
 
 	/**
-	 *
 	 * Show notice.
 	 *
 	 * @param mixed $is_current_settings_screen Is current settings screen.

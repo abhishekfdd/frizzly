@@ -31,7 +31,6 @@ class Frizzly_Client {
 	private $share_module;
 
 	/**
-	 *
 	 * Constructor.
 	 *
 	 * @param mixed $version Version.
@@ -46,7 +45,6 @@ class Frizzly_Client {
 	}
 
 	/**
-	 *
 	 * Add actions.
 	 */
 	private function add_actions() {
@@ -54,7 +52,6 @@ class Frizzly_Client {
 	}
 
 	/**
-	 *
 	 * Load dependencies.
 	 */
 	private function load_dependencies() {
@@ -70,7 +67,6 @@ class Frizzly_Client {
 	}
 
 	/**
-	 *
 	 * Enqueue scripts.
 	 */
 	public function enqueue_scripts() {

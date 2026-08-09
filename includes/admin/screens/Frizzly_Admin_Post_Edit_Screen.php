@@ -67,7 +67,6 @@ class Frizzly_Admin_Post_Edit_Screen {
 	private $meta_submodules;
 
 	/**
-	 *
 	 * Constructor.
 	 *
 	 * @param mixed $name Name.
@@ -95,7 +94,6 @@ class Frizzly_Admin_Post_Edit_Screen {
 	}
 
 	/**
-	 *
 	 * Add meta box.
 	 *
 	 * @param mixed $post_type Post type.
@@ -111,7 +109,6 @@ class Frizzly_Admin_Post_Edit_Screen {
 	}
 
 	/**
-	 *
 	 * Init.
 	 */
 	public function init() {
@@ -121,7 +118,6 @@ class Frizzly_Admin_Post_Edit_Screen {
 	}
 
 	/**
-	 *
 	 * Enqueue admin scripts.
 	 *
 	 * @param mixed $hook Hook.
@@ -146,7 +142,6 @@ class Frizzly_Admin_Post_Edit_Screen {
 	}
 
 	/**
-	 *
 	 * Render meta.
 	 */
 	public function render_meta() {
@@ -181,7 +176,6 @@ class Frizzly_Admin_Post_Edit_Screen {
 	}
 
 	/**
-	 *
 	 * Render general tab.
 	 *
 	 * @param mixed $id Id.
@@ -218,7 +212,6 @@ class Frizzly_Admin_Post_Edit_Screen {
 	}
 
 	/**
-	 *
 	 * Render network tab.
 	 *
 	 * @param mixed $network_slug Network slug.
@@ -338,7 +331,6 @@ class Frizzly_Admin_Post_Edit_Screen {
 	}
 
 	/**
-	 *
 	 * Render pinterest rows.
 	 *
 	 * @param mixed $network_slug Network slug.
@@ -385,7 +377,6 @@ class Frizzly_Admin_Post_Edit_Screen {
 	}
 
 	/**
-	 *
 	 * Save meta.
 	 *
 	 * @param mixed $post_id Post id.
@@ -406,7 +397,6 @@ class Frizzly_Admin_Post_Edit_Screen {
 	}
 
 	/**
-	 *
 	 * Save meta general.
 	 *
 	 * @param mixed $post_id Post id.
@@ -437,7 +427,6 @@ class Frizzly_Admin_Post_Edit_Screen {
 	}
 
 	/**
-	 *
 	 * Save meta network tabs.
 	 *
 	 * @param mixed $post_id Post id.
@@ -452,7 +441,6 @@ class Frizzly_Admin_Post_Edit_Screen {
 	}
 
 	/**
-	 *
 	 * Get network settings.
 	 *
 	 * @param mixed $network_name Network name.

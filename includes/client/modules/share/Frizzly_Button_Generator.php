@@ -17,7 +17,6 @@ class Frizzly_Button_Generator {
 	private $options;
 
 	/**
-	 *
 	 * Constructor.
 	 *
 	 * @param array $options Options.
@@ -27,7 +26,6 @@ class Frizzly_Button_Generator {
 	}
 
 	/**
-	 *
 	 * Get html.
 	 *
 	 * @param mixed $post_id Post id.
@@ -68,7 +66,6 @@ class Frizzly_Button_Generator {
 	}
 
 	/**
-	 *
 	 * Get attributes.
 	 *
 	 * @param mixed $network Network.
@@ -91,7 +88,6 @@ class Frizzly_Button_Generator {
 	}
 
 	/**
-	 *
 	 * Get network class.
 	 *
 	 * @param mixed $network Network.
@@ -108,7 +104,6 @@ class Frizzly_Button_Generator {
 	}
 
 	/**
-	 *
 	 * Get target attribute.
 	 *
 	 * @param mixed $network Network.
@@ -123,7 +118,6 @@ class Frizzly_Button_Generator {
 	}
 
 	/**
-	 *
 	 * Get align class.
 	 */
 	private function get_align_class() {

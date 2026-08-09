@@ -30,7 +30,6 @@ class Frizzly_Client_Share_Module {
 	protected $slug;
 
 	/**
-	 *
 	 * Constructor.
 	 */
 	public function __construct() {
@@ -51,7 +50,6 @@ class Frizzly_Client_Share_Module {
 	}
 
 	/**
-	 *
 	 * Get options.
 	 */
 	public function get_options() {
@@ -75,7 +73,6 @@ class Frizzly_Client_Share_Module {
 	}
 
 	/**
-	 *
 	 * Get slug.
 	 */
 	public function get_slug() {
@@ -83,7 +80,6 @@ class Frizzly_Client_Share_Module {
 	}
 
 	/**
-	 *
 	 * Load dependencies.
 	 */
 	private function load_dependencies() {
@@ -95,7 +91,6 @@ class Frizzly_Client_Share_Module {
 	}
 
 	/**
-	 *
 	 * Add submodules.
 	 */
 	private function add_submodules() {

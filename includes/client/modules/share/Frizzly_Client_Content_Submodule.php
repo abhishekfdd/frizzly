@@ -11,7 +11,6 @@
 class Frizzly_Client_Content_Submodule extends Frizzly_Client_Submodule {
 
 	/**
-	 *
 	 * Constructor.
 	 *
 	 * @param mixed $option Option.
@@ -24,7 +23,6 @@ class Frizzly_Client_Content_Submodule extends Frizzly_Client_Submodule {
 	}
 
 	/**
-	 *
 	 * Add filters.
 	 */
 	private function add_filters() {
@@ -36,7 +34,6 @@ class Frizzly_Client_Content_Submodule extends Frizzly_Client_Submodule {
 	}
 
 	/**
-	 *
 	 * Add to content.
 	 */
 	private function add_to_content() {
@@ -50,7 +47,6 @@ class Frizzly_Client_Content_Submodule extends Frizzly_Client_Submodule {
 	}
 
 	/**
-	 *
 	 * Filter add pinterest data.
 	 *
 	 * @param mixed $content Content.
@@ -124,7 +120,6 @@ class Frizzly_Client_Content_Submodule extends Frizzly_Client_Submodule {
 	}
 
 	/**
-	 *
 	 * Get i18n.
 	 */
 	public function get_i18n() {

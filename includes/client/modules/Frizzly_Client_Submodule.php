@@ -24,7 +24,6 @@ abstract class Frizzly_Client_Submodule {
 	private $option;
 
 	/**
-	 *
 	 * Constructor.
 	 *
 	 * @param mixed $slug Slug.
@@ -36,7 +35,6 @@ abstract class Frizzly_Client_Submodule {
 	}
 
 	/**
-	 *
 	 * Get i18n.
 	 */
 	public function get_i18n() {
@@ -44,7 +42,6 @@ abstract class Frizzly_Client_Submodule {
 	}
 
 	/**
-	 *
 	 * Get module options.
 	 */
 	public function get_module_options() {
@@ -52,7 +49,6 @@ abstract class Frizzly_Client_Submodule {
 	}
 
 	/**
-	 *
 	 * Get submodule options.
 	 */
 	public function get_submodule_options() {

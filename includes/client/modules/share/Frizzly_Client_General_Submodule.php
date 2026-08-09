@@ -11,7 +11,6 @@
 class Frizzly_Client_General_Submodule extends Frizzly_Client_Submodule {
 
 	/**
-	 *
 	 * Frizzly_Client_General_Submodule constructor.
 	 *
 	 * @param mixed $option Frizzly_Options.
@@ -23,7 +22,6 @@ class Frizzly_Client_General_Submodule extends Frizzly_Client_Submodule {
 	}
 
 	/**
-	 *
 	 * Action head.
 	 */
 	public function action_head() {
@@ -45,7 +43,6 @@ class Frizzly_Client_General_Submodule extends Frizzly_Client_Submodule {
 	}
 
 	/**
-	 *
 	 * Is active.
 	 */
 	public function is_active() {
@@ -53,7 +50,6 @@ class Frizzly_Client_General_Submodule extends Frizzly_Client_Submodule {
 	}
 
 	/**
-	 *
 	 * Get i18n.
 	 */
 	public function get_i18n() {

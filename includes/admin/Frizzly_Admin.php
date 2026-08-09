@@ -49,7 +49,6 @@ class Frizzly_Admin {
 	private $file;
 
 	/**
-	 *
 	 * Constructor.
 	 *
 	 * @param mixed $name Name.
@@ -63,7 +62,6 @@ class Frizzly_Admin {
 	}
 
 	/**
-	 *
 	 * Init.
 	 */
 	public function init() {

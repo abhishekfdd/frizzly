@@ -18,7 +18,6 @@ abstract class Frizzly_Ajax_Handler {
 	public $action_name;
 
 	/**
-	 *
 	 * Constructor.
 	 *
 	 * @param mixed $action_name Action name.
@@ -30,7 +29,6 @@ abstract class Frizzly_Ajax_Handler {
 	}
 
 	/**
-	 *
 	 * Handle.
 	 */
 	public function handle() {
@@ -40,7 +38,6 @@ abstract class Frizzly_Ajax_Handler {
 	}
 
 	/**
-	 *
 	 * Handle action.
 	 */
 	abstract public function handle_action();

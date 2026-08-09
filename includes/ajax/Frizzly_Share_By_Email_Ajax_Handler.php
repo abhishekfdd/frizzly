@@ -11,7 +11,6 @@
 class Frizzly_Share_By_Email_Ajax_Handler extends Frizzly_Ajax_Handler {
 
 	/**
-	 *
 	 * Constructor.
 	 */
 	public function __construct() {
@@ -19,7 +18,6 @@ class Frizzly_Share_By_Email_Ajax_Handler extends Frizzly_Ajax_Handler {
 	}
 
 	/**
-	 *
 	 * Handle action.
 	 */
 	public function handle_action() {
@@ -51,7 +49,6 @@ class Frizzly_Share_By_Email_Ajax_Handler extends Frizzly_Ajax_Handler {
 	}
 
 	/**
-	 *
 	 * Return error.
 	 *
 	 * @param mixed $message Message.
@@ -64,7 +61,6 @@ class Frizzly_Share_By_Email_Ajax_Handler extends Frizzly_Ajax_Handler {
 	}
 
 	/**
-	 *
 	 * Return success.
 	 *
 	 * @param mixed $message Message.
@@ -77,7 +73,6 @@ class Frizzly_Share_By_Email_Ajax_Handler extends Frizzly_Ajax_Handler {
 	}
 
 	/**
-	 *
 	 * Send email.
 	 *
 	 * @param mixed $post_title Post title.

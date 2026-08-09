@@ -98,7 +98,6 @@ class Frizzly_Link_Generator {
 	}
 
 	/**
-	 *
 	 * Find first.
 	 *
 	 * @param mixed $seq Seq.
@@ -114,7 +113,6 @@ class Frizzly_Link_Generator {
 	}
 
 	/**
-	 *
 	 * EncodeURIComponent.
 	 *
 	 * @param mixed $str Str.

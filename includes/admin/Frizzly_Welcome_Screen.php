@@ -45,7 +45,6 @@ class Frizzly_Welcome_Screen {
 	private $version;
 
 	/**
-	 *
 	 * Constructor.
 	 *
 	 * @param mixed $file File.
@@ -60,7 +59,6 @@ class Frizzly_Welcome_Screen {
 	}
 
 	/**
-	 *
 	 * Admin menus.
 	 */
 	public function admin_menus() {
@@ -78,7 +76,6 @@ class Frizzly_Welcome_Screen {
 	}
 
 	/**
-	 *
 	 * Welcome message.
 	 */
 	public function welcome_message() {
@@ -308,7 +305,6 @@ class Frizzly_Welcome_Screen {
 	}
 
 	/**
-	 *
 	 * Redirect.
 	 */
 	public function redirect() {

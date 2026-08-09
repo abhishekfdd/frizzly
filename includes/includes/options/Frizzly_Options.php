@@ -11,19 +11,16 @@
 abstract class Frizzly_Options {
 
 	/**
-	 *
 	 * Get name.
 	 */
 	abstract public function get_name();
 
 	/**
-	 *
 	 * Get default.
 	 */
 	abstract public function get_default();
 
 	/**
-	 *
 	 * Sanitize.
 	 *
 	 * @param mixed $input Input.
@@ -33,7 +30,6 @@ abstract class Frizzly_Options {
 	}
 
 	/**
-	 *
 	 * Get.
 	 */
 	public function get() {
@@ -45,7 +41,6 @@ abstract class Frizzly_Options {
 	}
 
 	/**
-	 *
 	 * Update.
 	 *
 	 * @param mixed $new_value New value.

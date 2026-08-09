@@ -30,7 +30,6 @@ class Frizzly_Admin_Notice {
 
 
 	/**
-	 *
 	 * Frizzly_Admin_Notice constructor.
 	 *
 	 * @param mixed $type string.
@@ -44,7 +43,6 @@ class Frizzly_Admin_Notice {
 	}
 
 	/**
-	 *
 	 * Get html.
 	 */
 	public function get_html() {

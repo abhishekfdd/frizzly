@@ -63,6 +63,42 @@ working tree.
   main file no longer mixes function and OO declarations. Re-verified: deactivate
   → activate sets `_frizzly_activation_redirect`.
 
+### Change C — deferred bootstrap (WP 6.7 "translation loading triggered too early")
+
+`Frizzly::__construct()` called `load_dependencies()` immediately, so the admin
+objects were constructed at plugin-load time. Their constructors call `__()`
+(`Frizzly_Admin_Share_Module`, the three admin submodules, and
+`Frizzly_Admin_Post_Edit_Screen`), which made WordPress load the `frizzly` text
+domain before `init`. Since WP 6.7 that emits a `_doing_it_wrong()` notice, and
+with `WP_DEBUG_DISPLAY` on the notice is echoed early enough to break every later
+`header()` call ("Cannot modify header information ... admin-header.php").
+
+**This was pre-existing, not caused by removing `load_plugin_textdomain()`.**
+Verified by extracting `a39ee20` (shipped 1.1.0) to a second plugin directory and
+activating it: the baseline reproduces the identical notice.
+
+Fix: `load_dependencies()` and `update_plugin()` are now hooked to `init`
+priority 5 rather than running at load / on `plugins_loaded`. Every hook the
+plugin registers fires after `init`, so nothing is lost - verified by dumping
+`$wp_filter` after a simulated admin load:
+
+| Hook | after fix |
+|---|---|
+| `admin_menu`, `admin_init`, `admin_notices` | registered |
+| `add_meta_boxes`, `save_post`, `admin_enqueue_scripts` | registered |
+| `wp_ajax_nopriv_frizzly_share_by_email`, `wp_ajax_frizzly_share_by_email` | registered |
+| front end | 200, `frizzly.client.js` enqueued |
+| activation transient | still set on activate |
+
+Reproduce the notice with (inside the cli container):
+```php
+<?php define("WP_ADMIN", true); define("WP_DEBUG", true);
+define("WP_DEBUG_DISPLAY", true); ini_set("display_errors",1);
+require "/var/www/html/wp-load.php";
+```
+wp-cli alone will **not** reproduce it - it runs the client branch, where no
+`__()` fires before `init`.
+
 ### Gate status
 
 - **`wp plugin check` against a built distributable: 0 errors, 1 warning.** The

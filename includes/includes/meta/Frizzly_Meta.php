@@ -18,7 +18,6 @@ abstract class Frizzly_Meta {
 	private $meta_key;
 
 	/**
-	 *
 	 * Constructor.
 	 *
 	 * @param mixed $meta_key Meta key.
@@ -28,13 +27,11 @@ abstract class Frizzly_Meta {
 	}
 
 	/**
-	 *
 	 * Get defaults.
 	 */
 	abstract protected function get_defaults();
 
 	/**
-	 *
 	 * Get.
 	 *
 	 * @param mixed $post_id Post id.
@@ -47,7 +44,6 @@ abstract class Frizzly_Meta {
 	}
 
 	/**
-	 *
 	 * Get key.
 	 */
 	public function get_key() {
@@ -55,7 +51,6 @@ abstract class Frizzly_Meta {
 	}
 
 	/**
-	 *
 	 * Merge arrays.
 	 *
 	 * @param mixed $defaults Defaults.
@@ -73,7 +68,6 @@ abstract class Frizzly_Meta {
 	}
 
 	/**
-	 *
 	 * Update.
 	 *
 	 * @param mixed $post_id Post id.

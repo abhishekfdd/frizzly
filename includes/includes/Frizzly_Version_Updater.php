@@ -24,7 +24,6 @@ class Frizzly_Version_Updater {
 	private $version;
 
 	/**
-	 *
 	 * Constructor.
 	 *
 	 * @param mixed $version Version.
@@ -34,7 +33,6 @@ class Frizzly_Version_Updater {
 	}
 
 	/**
-	 *
 	 * Update.
 	 */
 	public function update() {
@@ -52,7 +50,6 @@ class Frizzly_Version_Updater {
 	}
 
 	/**
-	 *
 	 * Update 1 1 0.
 	 */
 	private function update_1_1_0() {

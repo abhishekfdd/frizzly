@@ -42,7 +42,6 @@ abstract class Frizzly_Admin_Module {
 	protected $submodules;
 
 	/**
-	 *
 	 * Constructor.
 	 *
 	 * @param mixed $slug Slug.
@@ -58,7 +57,6 @@ abstract class Frizzly_Admin_Module {
 	}
 
 	/**
-	 *
 	 * Add submodule.
 	 *
 	 * @param mixed $submodule Submodule.
@@ -68,7 +66,6 @@ abstract class Frizzly_Admin_Module {
 	}
 
 	/**
-	 *
 	 * Get submodule.
 	 *
 	 * @param mixed $name Name.
@@ -78,7 +75,6 @@ abstract class Frizzly_Admin_Module {
 	}
 
 	/**
-	 *
 	 * Get tabs.
 	 */
 	public function get_tabs() {
@@ -94,7 +90,6 @@ abstract class Frizzly_Admin_Module {
 	}
 
 	/**
-	 *
 	 * Get page i18n.
 	 *
 	 * @param mixed $slug Slug.
@@ -104,7 +99,6 @@ abstract class Frizzly_Admin_Module {
 	}
 
 	/**
-	 *
 	 * Get page settings.
 	 *
 	 * @param mixed $slug Slug.
@@ -117,7 +111,6 @@ abstract class Frizzly_Admin_Module {
 	}
 
 	/**
-	 *
 	 * Save settings.
 	 *
 	 * @param mixed $submodule Submodule.
@@ -140,7 +133,6 @@ abstract class Frizzly_Admin_Module {
 	}
 
 	/**
-	 *
 	 * Show notices.
 	 *
 	 * @param mixed $is_share_module_screen Is share module screen.
@@ -153,7 +145,6 @@ abstract class Frizzly_Admin_Module {
 	}
 
 	/**
-	 *
 	 * Update settings section.
 	 *
 	 * @param mixed $section Section.

@@ -43,7 +43,6 @@ class Frizzly_Should_Run {
 	}
 
 	/**
-	 *
 	 * Is tag.
 	 *
 	 * @param mixed $tag Tag.

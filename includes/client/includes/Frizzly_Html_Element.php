@@ -30,7 +30,6 @@ class Frizzly_Html_Element {
 	private $elements;
 
 	/**
-	 *
 	 * Frizzly_Html_Element constructor.
 	 *
 	 * @param mixed $tag string.
@@ -42,7 +41,6 @@ class Frizzly_Html_Element {
 	}
 
 	/**
-	 *
 	 * Add attribute.
 	 *
 	 * @param mixed $name Name.
@@ -55,7 +53,6 @@ class Frizzly_Html_Element {
 	}
 
 	/**
-	 *
 	 * Add attributes.
 	 *
 	 * @param mixed $atts Atts.

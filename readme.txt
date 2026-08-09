@@ -39,6 +39,7 @@ Please report them in the plugin's [support forum on WordPress.org](https://word
 * Security: the settings screen now validates the requested tab against the registered tabs instead of trusting the query string.
 * Security: hardened the share-by-email endpoint (missing post check, sender domain no longer derived from the Host header).
 * Hardening: translated strings used as inline templates in the settings screen are sanitised and no longer evaluated as AngularJS expressions.
+* Fixed: the plugin bootstrapped during plugin load, which made WordPress load its text domain before the init action. On WordPress 6.7+ this produced a "triggered too early" notice and, with debug display enabled, sent output early enough to break admin redirects.
 
 = 1.1.0 =
 * Released 2017-01-30

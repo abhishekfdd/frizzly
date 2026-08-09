@@ -43,7 +43,6 @@ class Frizzly_Validator {
 	private $errors;
 
 	/**
-	 *
 	 * Constructor.
 	 *
 	 * @param mixed $current Current.
@@ -59,7 +58,6 @@ class Frizzly_Validator {
 	}
 
 	/**
-	 *
 	 * Process.
 	 */
 	private function process() {
@@ -85,7 +83,6 @@ class Frizzly_Validator {
 	}
 
 	/**
-	 *
 	 * Get errors.
 	 */
 	public function get_errors() {
@@ -93,7 +90,6 @@ class Frizzly_Validator {
 	}
 
 	/**
-	 *
 	 * Get result.
 	 */
 	public function get_result() {
@@ -120,7 +116,6 @@ class Frizzly_Validator {
 	}
 
 	/**
-	 *
 	 * Validate field.
 	 *
 	 * @param mixed $value Value.
@@ -140,7 +135,6 @@ class Frizzly_Validator {
 	}
 
 	/**
-	 *
 	 * Validate float.
 	 *
 	 * @param mixed $value Value.
@@ -156,7 +150,6 @@ class Frizzly_Validator {
 	}
 
 	/**
-	 *
 	 * Validate int.
 	 *
 	 * @param mixed $value Value.
@@ -172,7 +165,6 @@ class Frizzly_Validator {
 	}
 
 	/**
-	 *
 	 * Validate mix max.
 	 *
 	 * @param mixed $value Value.
@@ -192,7 +184,6 @@ class Frizzly_Validator {
 	}
 
 	/**
-	 *
 	 * Validate multiselect.
 	 *
 	 * @param mixed $value Value.
@@ -219,7 +210,6 @@ class Frizzly_Validator {
 	}
 
 	/**
-	 *
 	 * Validate select.
 	 *
 	 * @param mixed $value Value.
@@ -239,7 +229,6 @@ class Frizzly_Validator {
 	}
 
 	/**
-	 *
 	 * Try sanitize field.
 	 *
 	 * @param mixed $value Value.

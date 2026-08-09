@@ -30,7 +30,6 @@ class Frizzly_Ajax_Result_Builder {
 	private $messages;
 
 	/**
-	 *
 	 * Constructor.
 	 */
 	public function __construct() {
@@ -40,7 +39,6 @@ class Frizzly_Ajax_Result_Builder {
 	}
 
 	/**
-	 *
 	 * Set model.
 	 *
 	 * @param mixed $model Model.
@@ -51,7 +49,6 @@ class Frizzly_Ajax_Result_Builder {
 	}
 
 	/**
-	 *
 	 * Set error.
 	 *
 	 * @param mixed  $error_msg Error msg.
@@ -64,7 +61,6 @@ class Frizzly_Ajax_Result_Builder {
 	}
 
 	/**
-	 *
 	 * Set errors.
 	 *
 	 * @param mixed $errors Errors.
@@ -76,7 +72,6 @@ class Frizzly_Ajax_Result_Builder {
 	}
 
 	/**
-	 *
 	 * Set message.
 	 *
 	 * @param mixed  $msg Msg.
@@ -88,7 +83,6 @@ class Frizzly_Ajax_Result_Builder {
 	}
 
 	/**
-	 *
 	 * Build.
 	 */
 	public function build() {

@@ -11,7 +11,6 @@
 class Frizzly_Admin_Image_Submodule extends Frizzly_Admin_Button_Settings_Submodule_Base {
 
 	/**
-	 *
 	 * Constructor.
 	 */
 	public function __construct() {
@@ -19,7 +18,6 @@ class Frizzly_Admin_Image_Submodule extends Frizzly_Admin_Button_Settings_Submod
 	}
 
 	/**
-	 *
 	 * Get page settings.
 	 *
 	 * @param mixed $db_value Db value.
@@ -138,7 +136,6 @@ class Frizzly_Admin_Image_Submodule extends Frizzly_Admin_Button_Settings_Submod
 	}
 
 	/**
-	 *
 	 * Get page i18n.
 	 */
 	public function get_page_i18n() {

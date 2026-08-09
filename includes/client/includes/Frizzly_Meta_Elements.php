@@ -18,7 +18,6 @@ class Frizzly_Meta_Elements {
 	private $elements;
 
 	/**
-	 *
 	 * Constructor.
 	 */
 	public function __construct() {
@@ -26,7 +25,6 @@ class Frizzly_Meta_Elements {
 	}
 
 	/**
-	 *
 	 * Add element.
 	 *
 	 * @param mixed $property Property.
@@ -38,7 +36,6 @@ class Frizzly_Meta_Elements {
 	}
 
 	/**
-	 *
 	 * Get html.
 	 */
 	public function get_html() {

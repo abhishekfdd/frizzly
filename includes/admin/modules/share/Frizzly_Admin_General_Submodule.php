@@ -18,7 +18,6 @@ class Frizzly_Admin_General_Submodule extends Frizzly_Admin_Submodule {
 	private $nag_no_active_modules;
 
 	/**
-	 *
 	 * Constructor.
 	 */
 	public function __construct() {
@@ -29,7 +28,6 @@ class Frizzly_Admin_General_Submodule extends Frizzly_Admin_Submodule {
 	}
 
 	/**
-	 *
 	 * Hide nag no active modules.
 	 */
 	public function hide_nag_no_active_modules() {
@@ -45,7 +43,6 @@ class Frizzly_Admin_General_Submodule extends Frizzly_Admin_Submodule {
 	}
 
 	/**
-	 *
 	 * Get page i18n.
 	 */
 	public function get_page_i18n() {
@@ -65,7 +62,6 @@ class Frizzly_Admin_General_Submodule extends Frizzly_Admin_Submodule {
 	}
 
 	/**
-	 *
 	 * Get page settings.
 	 *
 	 * @param mixed $db_value Db value.
@@ -150,7 +146,6 @@ class Frizzly_Admin_General_Submodule extends Frizzly_Admin_Submodule {
 	}
 
 	/**
-	 *
 	 * Show notice.
 	 *
 	 * @param mixed $is_current_settings_screen Is current settings screen.
@@ -173,7 +168,6 @@ class Frizzly_Admin_General_Submodule extends Frizzly_Admin_Submodule {
 	}
 
 	/**
-	 *
 	 * Show nag no active modules.
 	 */
 	private function show_nag_no_active_modules() {

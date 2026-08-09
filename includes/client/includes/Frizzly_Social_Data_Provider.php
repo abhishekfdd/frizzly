@@ -24,7 +24,6 @@ class Frizzly_Social_Data_Provider {
 	private $social_data;
 
 	/**
-	 *
 	 * Frizzly_Social_Data_Provider constructor.
 	 *
 	 * @param mixed $id int.
@@ -35,7 +34,6 @@ class Frizzly_Social_Data_Provider {
 	}
 
 	/**
-	 *
 	 * Get description.
 	 *
 	 * @param mixed $network Network.
@@ -54,7 +52,6 @@ class Frizzly_Social_Data_Provider {
 	}
 
 	/**
-	 *
 	 * Get image info.
 	 *
 	 * @param mixed $network Network.
@@ -81,7 +78,6 @@ class Frizzly_Social_Data_Provider {
 	}
 
 	/**
-	 *
 	 * Get image url.
 	 *
 	 * @param mixed $network Network.
@@ -97,7 +93,6 @@ class Frizzly_Social_Data_Provider {
 	}
 
 	/**
-	 *
 	 * Get site name.
 	 *
 	 * @param mixed $network Network.
@@ -107,7 +102,6 @@ class Frizzly_Social_Data_Provider {
 	}
 
 	/**
-	 *
 	 * Get url.
 	 */
 	public function get_url() {
@@ -115,7 +109,6 @@ class Frizzly_Social_Data_Provider {
 	}
 
 	/**
-	 *
 	 * Get title.
 	 *
 	 * @param mixed $network Network.
@@ -130,7 +123,6 @@ class Frizzly_Social_Data_Provider {
 	}
 
 	/**
-	 *
 	 * Get additional data.
 	 *
 	 * @param mixed $network Network.
@@ -161,7 +153,6 @@ class Frizzly_Social_Data_Provider {
 	}
 
 	/**
-	 *
 	 * Initialize social data.
 	 */
 	private function initialize_social_data() {
@@ -170,7 +161,6 @@ class Frizzly_Social_Data_Provider {
 	}
 
 	/**
-	 *
 	 * Get network property.
 	 *
 	 * @param mixed $network Network.

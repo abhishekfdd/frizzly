@@ -36,7 +36,6 @@ class Frizzly {
 	private $file;
 
 	/**
-	 *
 	 * Constructor.
 	 *
 	 * @param mixed $name Name.
@@ -47,16 +46,25 @@ class Frizzly {
 		$this->name    = $name;
 		$this->version = $version;
 		$this->file    = $file;
-		$this->load_dependencies();
 
-		add_action( 'plugins_loaded', array( $this, 'update_plugin' ) );
+		/*
+		 * Bootstrapping is deferred to `init` because the admin objects call __() from
+		 * their constructors. Running that at plugin-load time makes WordPress load the
+		 * text domain before `init`, which since 6.7 emits a _doing_it_wrong() notice and
+		 * - with WP_DEBUG_DISPLAY on - sends output early enough to break later header()
+		 * calls such as the welcome-screen redirect.
+		 *
+		 * Every hook registered below fires after `init` (admin_menu, admin_init,
+		 * wp_enqueue_scripts, the_content, wp_ajax_*), so nothing is missed.
+		 */
+		add_action( 'init', array( $this, 'load_dependencies' ), 5 );
+		add_action( 'init', array( $this, 'update_plugin' ), 5 );
 	}
 
 	/**
-	 *
 	 * Load dependencies.
 	 */
-	private function load_dependencies() {
+	public function load_dependencies() {
 		require_once 'includes/Frizzly_Includes.php';
 		new Frizzly_Includes();
 
@@ -74,7 +82,6 @@ class Frizzly {
 	}
 
 	/**
-	 *
 	 * Update plugin.
 	 */
 	public function update_plugin() {

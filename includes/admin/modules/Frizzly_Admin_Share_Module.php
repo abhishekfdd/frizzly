@@ -24,7 +24,6 @@ class Frizzly_Admin_Share_Module extends Frizzly_Admin_Module {
 	private $meta_submodules;
 
 	/**
-	 *
 	 * Constructor.
 	 */
 	public function __construct() {
@@ -37,7 +36,6 @@ class Frizzly_Admin_Share_Module extends Frizzly_Admin_Module {
 	}
 
 	/**
-	 *
 	 * Add submodules.
 	 */
 	public function add_submodules() {
@@ -47,7 +45,6 @@ class Frizzly_Admin_Share_Module extends Frizzly_Admin_Module {
 	}
 
 	/**
-	 *
 	 * Is current module screen.
 	 */
 	public function is_current_module_screen() {
@@ -60,7 +57,6 @@ class Frizzly_Admin_Share_Module extends Frizzly_Admin_Module {
 	}
 
 	/**
-	 *
 	 * Load dependencies.
 	 */
 	public function load_dependencies() {
@@ -71,7 +67,6 @@ class Frizzly_Admin_Share_Module extends Frizzly_Admin_Module {
 	}
 
 	/**
-	 *
 	 * Show notices.
 	 *
 	 * @param mixed $is_share_module_screen Is share module screen.

@@ -11,7 +11,6 @@
 class Frizzly_Client_Image_Submodule extends Frizzly_Client_Submodule {
 
 	/**
-	 *
 	 * Constructor.
 	 *
 	 * @param mixed $option Option.
@@ -47,7 +46,6 @@ class Frizzly_Client_Image_Submodule extends Frizzly_Client_Submodule {
 	}
 
 	/**
-	 *
 	 * Adds necessary attributes to images.
 	 * This piece of code uses a lot of code from the Photo Protect http://wordpress.org/plugins/photo-protect/ plugin
 	 *
@@ -121,7 +119,6 @@ class Frizzly_Client_Image_Submodule extends Frizzly_Client_Submodule {
 	}
 
 	/**
-	 *
 	 * Get attachment.
 	 *
 	 * @param mixed $id Id.
@@ -139,7 +136,6 @@ class Frizzly_Client_Image_Submodule extends Frizzly_Client_Submodule {
 	}
 
 	/**
-	 *
 	 * Function copied from http://frankiejarrett.com/get-an-attachment-id-by-url-in-wordpress/
 	 * Return an ID of an attachment by searching the database with the file URL.
 	 *

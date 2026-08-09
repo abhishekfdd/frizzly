@@ -18,7 +18,6 @@ class Frizzly_Client_Twitter_Meta_Tags {
 	private $network_name;
 
 	/**
-	 *
 	 * Constructor.
 	 */
 	public function __construct() {
@@ -26,7 +25,6 @@ class Frizzly_Client_Twitter_Meta_Tags {
 	}
 
 	/**
-	 *
 	 * Print tags.
 	 *
 	 * @param mixed $post_id Post id.

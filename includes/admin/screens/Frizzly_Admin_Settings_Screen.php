@@ -67,7 +67,6 @@ class Frizzly_Admin_Settings_Screen {
 	private $page_base;
 
 	/**
-	 *
 	 * Constructor.
 	 *
 	 * @param mixed $name Name.
@@ -87,7 +86,6 @@ class Frizzly_Admin_Settings_Screen {
 	}
 
 	/**
-	 *
 	 * Init.
 	 */
 	public function init() {
@@ -101,7 +99,6 @@ class Frizzly_Admin_Settings_Screen {
 	}
 
 	/**
-	 *
 	 * Add admin menu.
 	 */
 	public function add_admin_menu() {
@@ -115,7 +112,6 @@ class Frizzly_Admin_Settings_Screen {
 	}
 
 	/**
-	 *
 	 * Add settings link.
 	 *
 	 * @param mixed $links Links.
@@ -128,7 +124,6 @@ class Frizzly_Admin_Settings_Screen {
 	}
 
 	/**
-	 *
 	 * Enqueue admin scripts.
 	 *
 	 * @param mixed $hook Hook.
@@ -197,7 +192,6 @@ class Frizzly_Admin_Settings_Screen {
 	}
 
 	/**
-	 *
 	 * Print settings page.
 	 */
 	public function print_settings_page() {
@@ -210,7 +204,6 @@ class Frizzly_Admin_Settings_Screen {
 	}
 
 	/**
-	 *
 	 * Ajax custom.
 	 */
 	public function ajax_custom() {
@@ -231,7 +224,6 @@ class Frizzly_Admin_Settings_Screen {
 	}
 
 	/**
-	 *
 	 * Save settings.
 	 */
 	public function save_settings() {
@@ -259,7 +251,6 @@ class Frizzly_Admin_Settings_Screen {
 	}
 
 	/**
-	 *
 	 * Show notices.
 	 */
 	public function show_notices() {

@@ -11,7 +11,6 @@
 class Frizzly_Admin_Button_Settings_Submodule_Base extends Frizzly_Admin_Submodule {
 
 	/**
-	 *
 	 * Get page settings.
 	 *
 	 * @param mixed $db_value Db value.
@@ -86,7 +85,6 @@ class Frizzly_Admin_Button_Settings_Submodule_Base extends Frizzly_Admin_Submodu
 	}
 
 	/**
-	 *
 	 * Get page i18n.
 	 */
 	public function get_page_i18n() {
@@ -108,7 +106,6 @@ class Frizzly_Admin_Button_Settings_Submodule_Base extends Frizzly_Admin_Submodu
 	}
 
 	/**
-	 *
 	 * Show notice.
 	 *
 	 * @param mixed $is_current_settings_screen Is current settings screen.
