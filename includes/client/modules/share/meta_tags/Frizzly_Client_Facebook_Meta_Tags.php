@@ -1,14 +1,35 @@
 <?php
+/**
+ * Frizzly Client Facebook Meta Tags.
+ *
+ * @package Frizzly
+ */
 
+/**
+ * Frizzly Client Facebook Meta Tags.
+ */
 class Frizzly_Client_Facebook_Meta_Tags {
 
+	/**
+	 * Network name.
+	 *
+	 * @var mixed
+	 */
 	private $network_name;
 
-	function __construct() {
+	/**
+	 * Constructor.
+	 */
+	public function __construct() {
 		$this->network_name = 'facebook';
 	}
 
-	function print_tags( $post_id ) {
+	/**
+	 * Print tags.
+	 *
+	 * @param mixed $post_id Post id.
+	 */
+	public function print_tags( $post_id ) {
 		$provider = new Frizzly_Social_Data_Provider( $post_id );
 		$elements = new Frizzly_Meta_Elements();
 		$elements
@@ -21,6 +42,7 @@ class Frizzly_Client_Facebook_Meta_Tags {
 		if ( false !== $img ) {
 			$elements->add_element( 'og:image', $img );
 		}
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Frizzly_Meta_Elements::get_html() escapes every property and content value with esc_attr().
 		echo $elements->get_html();
 	}
 }

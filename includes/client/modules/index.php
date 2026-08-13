@@ -1,1 +1,8 @@
-<?php //Silence is golden
+<?php
+/**
+ * Index.
+ *
+ * @package Frizzly
+ */
+
+// Silence is golden.

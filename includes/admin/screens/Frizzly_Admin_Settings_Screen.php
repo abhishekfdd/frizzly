@@ -1,25 +1,79 @@
 <?php
+/**
+ * Frizzly Admin Settings Screen.
+ *
+ * @package Frizzly
+ */
 
+/**
+ * Frizzly Admin Settings Screen.
+ */
 class Frizzly_Admin_Settings_Screen {
 
 	/**
+	 * Share module.
+	 *
 	 * @var Frizzly_Admin_Share_Module
 	 */
 	private $share_module;
 
 	/**
+	 * Ajax custom action.
+	 *
 	 * @var string
 	 */
 	private $ajax_custom_action;
+	/**
+	 * Save settings action.
+	 *
+	 * @var mixed
+	 */
 	private $save_settings_action;
+	/**
+	 * Save settings tab.
+	 *
+	 * @var mixed
+	 */
 	private $save_settings_tab;
+	/**
+	 * Name.
+	 *
+	 * @var mixed
+	 */
 	private $name;
+	/**
+	 * File.
+	 *
+	 * @var mixed
+	 */
 	private $file;
+	/**
+	 * Version.
+	 *
+	 * @var mixed
+	 */
 	private $version;
+	/**
+	 * Screen hook.
+	 *
+	 * @var mixed
+	 */
 	private $screen_hook;
+	/**
+	 * Page base.
+	 *
+	 * @var mixed
+	 */
 	private $page_base;
 
-	function __construct( $name, $version, $file, $admin_modules ) {
+	/**
+	 * Constructor.
+	 *
+	 * @param mixed $name Name.
+	 * @param mixed $version Version.
+	 * @param mixed $file File.
+	 */
+	public function __construct( $name, $version, $file ) {
 		$this->ajax_custom_action   = 'frizzly_settings_custom';
 		$this->save_settings_action = 'frizzly_settings_save';
 		$this->save_settings_tab    = 'frizzly_settings_save_tab';
@@ -31,7 +85,10 @@ class Frizzly_Admin_Settings_Screen {
 		$this->screen_hook          = '';
 	}
 
-	function init() {
+	/**
+	 * Init.
+	 */
+	public function init() {
 		add_action( 'admin_init', array( $this, 'save_settings' ) );
 		add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
@@ -41,7 +98,10 @@ class Frizzly_Admin_Settings_Screen {
 		add_filter( "plugin_action_links_$basename", array( $this, 'add_settings_link' ) );
 	}
 
-	function add_admin_menu() {
+	/**
+	 * Add admin menu.
+	 */
+	public function add_admin_menu() {
 		$this->screen_hook = add_options_page(
 			$this->name,
 			$this->name,
@@ -51,14 +111,24 @@ class Frizzly_Admin_Settings_Screen {
 		);
 	}
 
-	function add_settings_link( $links ) {
+	/**
+	 * Add settings link.
+	 *
+	 * @param mixed $links Links.
+	 */
+	public function add_settings_link( $links ) {
 		$url  = admin_url( 'options-general.php?page=' . $this->page_base );
 		$link = sprintf( '<a href="%s">%s</a>', $url, __( 'Settings', 'frizzly' ) );
 		array_unshift( $links, $link );
 		return $links;
 	}
 
-	function enqueue_admin_scripts( $hook ) {
+	/**
+	 * Enqueue admin scripts.
+	 *
+	 * @param mixed $hook Hook.
+	 */
+	public function enqueue_admin_scripts( $hook ) {
 		if ( $this->screen_hook !== $hook ) {
 			return;
 		}
@@ -66,80 +136,120 @@ class Frizzly_Admin_Settings_Screen {
 		$plugin_dir_url = plugin_dir_url( $this->file );
 		wp_enqueue_script( 'frizzly-admin-js', $plugin_dir_url . 'js/frizzly.admin.js', array( 'jquery' ), $this->version, true );
 
-		$tabs = $this->share_module->get_tabs();
-		$tab  = isset( $_GET['tab'] ) ? $_GET['tab'] : $tabs[0]['slug'];
+		$tabs      = $this->share_module->get_tabs();
+		$tab_slugs = wp_list_pluck( $tabs, 'slug' );
 
+		// The tab is a view selector on a manage_options-only screen, so no nonce applies.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$requested_tab = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : '';
 
-		wp_localize_script( 'frizzly-admin-js', 'frizzlySettings', array(
-			'ajax'     => array(
-				'url'               => admin_url( 'admin-ajax.php' ),
-				'customAction'      => $this->ajax_custom_action,
-				'customActionNonce' => wp_create_nonce( $this->ajax_custom_action ),
-				'tab'               => $tab,
-			),
-			'save'     => array(
-				'post_url' => add_query_arg( array( 'tab' => $tab ) ),
-				'action'   => $this->save_settings_action,
-				'nonce'    => wp_create_nonce( $this->save_settings_action ),
-				'tab'      => $this->save_settings_tab,
-				'submit'   => __( 'Save Changes', 'frizzly' )
-			),
-			'tabs'     => $tabs,
-			'tab'      => $tab,
-			'page'     => $this->page_base,
-			'settings' => $this->share_module->get_page_settings( $tab ),
-			'i18n'     => array(
-				'editor' => $this->share_module->get_page_i18n( $tab ),
-				'links'  => array(
-					array(
-						'name' => __( 'Documentation', 'frizzly' ),
-						'url'  => 'https://highfiveplugins.com/frizzly/frizzly-documentation/'
+		// Anything not in the registered tab list falls back to the first tab. Without this,
+		// an unknown slug reaches Frizzly_Admin_Module::get_page_settings() and fatals on PHP 8.
+		$tab = in_array( $requested_tab, $tab_slugs, true ) ? $requested_tab : $tabs[0]['slug'];
+
+		$settings_url = admin_url( 'options-general.php?page=' . $this->page_base );
+
+		wp_localize_script(
+			'frizzly-admin-js',
+			'frizzlySettings',
+			array(
+				'ajax'     => array(
+					'url'               => admin_url( 'admin-ajax.php' ),
+					'customAction'      => $this->ajax_custom_action,
+					'customActionNonce' => wp_create_nonce( $this->ajax_custom_action ),
+					'tab'               => $tab,
+				),
+				'save'     => array(
+					'post_url' => add_query_arg( array( 'tab' => $tab ), $settings_url ),
+					'action'   => $this->save_settings_action,
+					'nonce'    => wp_create_nonce( $this->save_settings_action ),
+					'tab'      => $this->save_settings_tab,
+					'submit'   => __( 'Save Changes', 'frizzly' ),
+				),
+				'tabs'     => $tabs,
+				'tab'      => $tab,
+				'page'     => $this->page_base,
+				'settings' => $this->share_module->get_page_settings( $tab ),
+				'i18n'     => array(
+					'editor' => $this->share_module->get_page_i18n( $tab ),
+					'links'  => array(
+						array(
+							'name' => __( 'Support', 'frizzly' ),
+							'url'  => 'https://wordpress.org/support/plugin/frizzly',
+						),
 					),
-					array(
-						'name' => __( 'Support', 'frizzly' ),
-						'url'  => 'https://wordpress.org/support/plugin/frizzly'
-					)
-				)
+				),
 			)
-		) );
+		);
 
 		wp_enqueue_style( 'frizzly-lib-font-awesome', $plugin_dir_url . 'css/libs/font-awesome/css/font-awesome.css', array(), $this->version );
 		wp_enqueue_style( 'frizzly-admin-css', $plugin_dir_url . 'css/frizzly.admin.css', array( 'frizzly-lib-font-awesome' ), $this->version );
 		wp_enqueue_media();
 	}
 
-	function print_settings_page() {
+	/**
+	 * Print settings page.
+	 */
+	public function print_settings_page() {
 		?>
-        <div ng-app="app" class="wrap">
-            <h2><?php _e( 'Frizzly', 'frizzly' ); ?></h2>
-            <share></share>
-        </div>
+		<div ng-app="app" class="wrap">
+			<h2><?php esc_html_e( 'Frizzly', 'frizzly' ); ?></h2>
+			<share></share>
+		</div>
 		<?php
 	}
 
-	function ajax_custom() {
+	/**
+	 * Ajax custom.
+	 */
+	public function ajax_custom() {
 		check_ajax_referer( $this->ajax_custom_action, 'nonce' );
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die();
 		}
 
-		$action = $_REQUEST['name'];
-		$params = json_decode( stripslashes( $_REQUEST['settings'] ), true );
-		$result = apply_filters( 'frizzly_settings_custom_' . $action, array(), $params );
+		$action = isset( $_REQUEST['name'] ) ? sanitize_key( wp_unslash( $_REQUEST['name'] ) ) : '';
+		if ( '' === $action ) {
+			wp_send_json( array() );
+		}
+
+		$settings = isset( $_REQUEST['settings'] ) ? sanitize_textarea_field( wp_unslash( $_REQUEST['settings'] ) ) : '';
+		$params   = json_decode( $settings, true );
+		$result   = apply_filters( 'frizzly_settings_custom_' . $action, array(), $params );
 		wp_send_json( $result );
 	}
 
-	function save_settings() {
+	/**
+	 * Save settings.
+	 */
+	public function save_settings() {
 		$return_condition = ! isset( $_POST[ $this->save_settings_action ] ) ||
-		                    ! wp_verify_nonce( $_POST[ $this->save_settings_action ], $this->save_settings_action );
+							! wp_verify_nonce(
+								sanitize_text_field( wp_unslash( $_POST[ $this->save_settings_action ] ) ),
+								$this->save_settings_action
+							);
 		if ( $return_condition ) {
 			return;
 		}
-		$tab = $_POST[ $this->save_settings_tab ];
-		$this->share_module->save_settings( $tab, $_POST );
+
+		$tab_slugs = wp_list_pluck( $this->share_module->get_tabs(), 'slug' );
+		$tab       = isset( $_POST[ $this->save_settings_tab ] )
+			? sanitize_key( wp_unslash( $_POST[ $this->save_settings_tab ] ) )
+			: '';
+
+		// An unregistered tab would fatal in Frizzly_Admin_Module::validate() and could write
+		// an arbitrary key into the frizzly_share option, so refuse it outright.
+		if ( ! in_array( $tab, $tab_slugs, true ) ) {
+			return;
+		}
+
+		$this->share_module->save_settings( $tab, wp_unslash( $_POST ) );
 	}
 
-	function show_notices() {
+	/**
+	 * Show notices.
+	 */
+	public function show_notices() {
 		$screen            = get_current_screen();
 		$is_current_screen = $this->screen_hook === $screen->id;
 		$this->share_module->show_notices( $is_current_screen );

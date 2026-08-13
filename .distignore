@@ -1,0 +1,13 @@
+.git
+.github
+.gitignore
+.distignore
+.wp-env.json
+phpcs.xml.dist
+composer.json
+composer.lock
+vendor
+node_modules
+CLAUDE.md
+TODO-1.2.0.md
+RESUME.md

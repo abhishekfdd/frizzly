@@ -1,25 +1,65 @@
 <?php
+/**
+ * Frizzly Validator.
+ *
+ * @package Frizzly
+ */
 
+/**
+ * Frizzly Validator.
+ */
 class Frizzly_Validator {
 
+	/**
+	 * Current.
+	 *
+	 * @var mixed
+	 */
 	private $current;
+	/**
+	 * Default.
+	 *
+	 * @var mixed
+	 */
 	private $default;
+	/**
+	 * Settings.
+	 *
+	 * @var mixed
+	 */
 	private $settings;
 
+	/**
+	 * Result.
+	 *
+	 * @var mixed
+	 */
 	private $result;
 	/**
+	 * Errors.
+	 *
 	 * @var string[]
 	 */
 	private $errors;
 
-	function __construct( $current, $default, $settings ) {
+	/**
+	 * Constructor.
+	 *
+	 * @param mixed $current Current.
+	 * @param mixed $default_value Default value.
+	 * @param mixed $settings Settings.
+	 */
+	public function __construct( $current, $default_value, $settings ) {
 		$this->current  = $current;
-		$this->default  = $default;
+		$this->default  = $default_value;
 		$this->settings = $settings;
 
 		$this->process();
 	}
 
+	/**
+	 * Process.
+	 */
 	private function process() {
 		$this->errors = array();
 		$this->result = array();
@@ -42,19 +82,26 @@ class Frizzly_Validator {
 		}
 	}
 
-	function get_errors() {
+	/**
+	 * Get errors.
+	 */
+	public function get_errors() {
 		return $this->errors;
 	}
 
-	function get_result() {
+	/**
+	 * Get result.
+	 */
+	public function get_result() {
 		return $this->result;
 	}
 
 	/**
-	 * @param $error_type string
-	 * @param $error_default_format string
-	 * @param $setting array
+	 * Get error text.
 	 *
+	 * @param mixed $error_type string.
+	 * @param mixed $error_default_format string.
+	 * @param mixed $setting array.
 	 * @return string
 	 */
 	private function get_error_text( $error_type, $error_default_format, $setting ) {
@@ -68,6 +115,12 @@ class Frizzly_Validator {
 		return sprintf( $error_default_format, $error_label );
 	}
 
+	/**
+	 * Validate field.
+	 *
+	 * @param mixed $value Value.
+	 * @param mixed $setting Setting.
+	 */
 	private function validate_field( $value, $setting ) {
 		if ( ! isset( $setting['type'] ) ) {
 			return true;
@@ -81,44 +134,74 @@ class Frizzly_Validator {
 		return true;
 	}
 
+	/**
+	 * Validate float.
+	 *
+	 * @param mixed $value Value.
+	 * @param mixed $setting Setting.
+	 */
 	private function validate_float( $value, $setting ) {
 		if ( ! is_float( $value ) ) {
+			/* translators: %1$s: setting label */
 			return $this->get_error_text( 'type', __( '%1$s value is not a number.', 'frizzly' ), $setting );
 		}
 
 		return $this->validate_mix_max( $value, $setting );
 	}
 
+	/**
+	 * Validate int.
+	 *
+	 * @param mixed $value Value.
+	 * @param mixed $setting Setting.
+	 */
 	private function validate_int( $value, $setting ) {
 		if ( ! is_int( $value ) ) {
+			/* translators: %1$s: setting label */
 			return $this->get_error_text( 'type', __( '%1$s value is not a number.', 'frizzly' ), $setting );
 		}
 
 		return $this->validate_mix_max( $value, $setting );
 	}
 
+	/**
+	 * Validate mix max.
+	 *
+	 * @param mixed $value Value.
+	 * @param mixed $setting Setting.
+	 */
 	private function validate_mix_max( $value, $setting ) {
 		if ( isset( $setting['min'] ) && $value < $setting['min'] ) {
+			/* translators: 1: setting label, 2: minimum allowed value */
 			return $this->get_error_text( 'min', __( '%1$s  value is less than the minimum value of %2$s.', 'frizzly' ), $setting );
 		}
 		if ( isset( $setting['max'] ) && $value > $setting['max'] ) {
+			/* translators: 1: setting label, 2: maximum allowed value */
 			return $this->get_error_text( 'max', __( '%1$s value is greater than the minimum value of %2$s.', 'frizzly' ), $setting );
 		}
 
 		return true;
 	}
 
+	/**
+	 * Validate multiselect.
+	 *
+	 * @param mixed $value Value.
+	 * @param mixed $setting Setting.
+	 */
 	private function validate_multiselect( $value, $setting ) {
+		/* translators: %1$s: setting label */
 		$err = __( '%1$s value is invalid.', 'frizzly' );
 		if ( ! is_array( $value ) ) {
-			return $this->get_error_text( 'type',  $err, $setting );
+			return $this->get_error_text( 'type', $err, $setting );
 		}
 		if ( isset( $setting['min'] ) && count( $value ) < $setting['min'] ) {
-			return $this->get_error_text( 'min', __('%1$s does not have enough selected records.', 'frizzly'), $setting);
+			/* translators: %1$s: setting label */
+			return $this->get_error_text( 'min', __( '%1$s does not have enough selected records.', 'frizzly' ), $setting );
 		}
 		$options_keys = array_keys( $setting['options'] );
 		foreach ( $value as $name ) {
-			if ( ! in_array( $name, $options_keys ) ) {
+			if ( ! in_array( $name, $options_keys, true ) ) {
 				return $this->get_error_text( 'type', $err, $setting );
 			}
 		}
@@ -126,10 +209,17 @@ class Frizzly_Validator {
 		return true;
 	}
 
+	/**
+	 * Validate select.
+	 *
+	 * @param mixed $value Value.
+	 * @param mixed $setting Setting.
+	 */
 	private function validate_select( $value, $setting ) {
 		$options_keys = array_keys( $setting['options'] );
-		if ( ! in_array( $value, $options_keys ) ) {
+		if ( ! in_array( $value, $options_keys, true ) ) {
 			return sprintf(
+				/* translators: %1$s: setting label */
 				__( '%1$s value is invalid.', 'frizzly' ),
 				$this->get_error_label( $setting )
 			);
@@ -138,6 +228,12 @@ class Frizzly_Validator {
 		return true;
 	}
 
+	/**
+	 * Try sanitize field.
+	 *
+	 * @param mixed $value Value.
+	 * @param mixed $setting Setting.
+	 */
 	private function try_sanitize_field( $value, $setting ) {
 		if ( ! isset( $setting['type'] ) ) {
 			return $value;
@@ -151,9 +247,12 @@ class Frizzly_Validator {
 				return 'on' === $value;
 			case 'multiselect':
 				return '' === $value ? array() : explode( ',', $value );
+			case 'text':
+				// Free-text settings are stored and later re-emitted (meta tags, localized
+				// script data), so strip markup here rather than relying on output escaping.
+				return is_string( $value ) ? sanitize_text_field( $value ) : $value;
 			default:
 				return $value;
 		}
 	}
-
 }

@@ -1,21 +1,29 @@
 <?php
+/**
+ * Frizzly Should Run.
+ *
+ * @package Frizzly
+ */
 
-
+/**
+ * Frizzly Should Run.
+ */
 class Frizzly_Should_Run {
 
 	/**
-	 * @param $enabled string
-	 * @param $disabled string
+	 * Should execute.
 	 *
+	 * @param mixed $enabled string.
+	 * @param mixed $disabled string.
 	 * @return bool
 	 */
-	static function should_execute( $enabled, $disabled ) {
+	public static function should_execute( $enabled, $disabled ) {
 		$should         = false;
 		$enabled_array  = explode( ',', $enabled );
 		$disabled_array = explode( ',', $disabled );
 
 		foreach ( $enabled_array as $tag ) {
-			if ( Frizzly_Should_Run::is_tag( $tag ) ) {
+			if ( self::is_tag( $tag ) ) {
 				$should = true;
 				break;
 			}
@@ -26,7 +34,7 @@ class Frizzly_Should_Run {
 		}
 
 		foreach ( $disabled_array as $tag ) {
-			if ( Frizzly_Should_Run::is_tag( $tag ) ) {
+			if ( self::is_tag( $tag ) ) {
 				return false;
 			}
 		}
@@ -34,7 +42,12 @@ class Frizzly_Should_Run {
 		return true;
 	}
 
-	static private function is_tag( $tag ) {
+	/**
+	 * Is tag.
+	 *
+	 * @param mixed $tag Tag.
+	 */
+	private static function is_tag( $tag ) {
 		$tag = trim( $tag );
 		if ( is_numeric( $tag ) ) {
 			$int = intval( $tag );

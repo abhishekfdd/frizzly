@@ -1,18 +1,35 @@
 <?php
+/**
+ * Frizzly Share Options.
+ *
+ * @package Frizzly
+ */
 
+/**
+ * Frizzly Share Options.
+ */
 class Frizzly_Share_Options extends Frizzly_Options {
 
-	function add_handle_to_tweets() {
+	/**
+	 * Add handle to tweets.
+	 */
+	public function add_handle_to_tweets() {
 		$val = $this->get();
 
 		return $val['general']['add_handle_to_tweets'];
 	}
 
-	function get_name() {
+	/**
+	 * Get name.
+	 */
+	public function get_name() {
 		return 'frizzly_share';
 	}
 
-	function get_default() {
+	/**
+	 * Get default.
+	 */
+	public function get_default() {
 		$defaults = array(
 			'image'   => array(
 				'image_selector'         => '.frizzly_container img',
@@ -30,7 +47,7 @@ class Frizzly_Share_Options extends Frizzly_Options {
 				'image_classes'          => '',
 				'image_classes_positive' => true,
 				'enabled_on'             => '[front],[home],[single],[page],[archive],[search],[category]',
-				'disabled_on'            => ''
+				'disabled_on'            => '',
 			),
 			'content' => array(
 				'align'              => 'left',
@@ -40,35 +57,41 @@ class Frizzly_Share_Options extends Frizzly_Options {
 				'button_size'        => 'normal',
 				'button_shape'       => 'square',
 				'enabled_on'         => '[front],[home],[single],[page],[archive],[search],[category]',
-				'disabled_on'        => ''
+				'disabled_on'        => '',
 			),
 			'general' => array(
-				// ACTIVE MODULES
+				// Active modules.
 				'active_image'           => false,
 				'active_content'         => false,
-				// TWITTER
+				// Twitter.
 				'twitter_handle'         => '',
 				'add_handle_to_tweets'   => true,
-				// PINTEREST
+				// Pinterest.
 				'pinterest_source'       => array( 'image_title', 'image_alt', 'post_title' ),
-				// META TAGS
+				// Meta tags.
 				'meta_open_graph'        => true,
 				'meta_twitter'           => true,
 				'meta_twitter_card_type' => 'summary_large_image',
-			)
+			),
 		);
 
 		return $defaults;
 	}
 
 
-	function get_pinterest_source() {
+	/**
+	 * Get pinterest source.
+	 */
+	public function get_pinterest_source() {
 		$val = $this->get();
 
 		return $val['general']['pinterest_source'];
 	}
 
-	function get_pinterest_behavior() {
+	/**
+	 * Get pinterest behavior.
+	 */
+	public function get_pinterest_behavior() {
 		$val = $this->get();
 
 		return $val['content']['pinterest_behavior'];

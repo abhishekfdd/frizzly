@@ -1,20 +1,43 @@
 <?php
+/**
+ * Frizzly Button Generator.
+ *
+ * @package Frizzly
+ */
 
+/**
+ * Frizzly Button Generator.
+ */
 class Frizzly_Button_Generator {
+	/**
+	 * Options.
+	 *
+	 * @var mixed
+	 */
 	private $options;
 
-	function __construct( $options = array() ) {
+	/**
+	 * Constructor.
+	 *
+	 * @param array $options Options.
+	 */
+	public function __construct( $options = array() ) {
 		$this->options = $options;
 	}
 
-	function get_html( $post_id ) {
+	/**
+	 * Get html.
+	 *
+	 * @param mixed $post_id Post id.
+	 */
+	public function get_html( $post_id ) {
 		$data_provider = new Frizzly_Social_Data_Provider( $post_id );
 		$div_classes   = array(
 			'frizzly-content',
 			'frizzly-button-container',
 			'frizzly-button-size-' . $this->options['button_size'],
 			'frizzly-theme-' . $this->options['button_shape'],
-			$this->get_align_class()
+			$this->get_align_class(),
 		);
 		$container     = new Frizzly_Html_Element( 'div' );
 		$container->add_attribute( 'class', join( ' ', $div_classes ) );
@@ -23,11 +46,13 @@ class Frizzly_Button_Generator {
 			$additional_data = $data_provider->get_additional_data( $network_name );
 			$anchor          = new Frizzly_Html_Element( 'a' );
 			$anchor
-				->add_attributes( array(
-					'target' => $this->get_target_attribute( $network_name ),
-					'class'  => 'frizzly-button frizzly-' . $network_name,
-					'href'   => $link
-				) )
+				->add_attributes(
+					array(
+						'target' => $this->get_target_attribute( $network_name ),
+						'class'  => 'frizzly-button frizzly-' . $network_name,
+						'href'   => $link,
+					)
+				)
 				->add_attributes( $this->get_attributes( $network_name, $post_id, $additional_data ) );
 
 			$icon = new Frizzly_Html_Element( 'i' );
@@ -40,7 +65,14 @@ class Frizzly_Button_Generator {
 		return $container->get_html();
 	}
 
-	function get_attributes( $network, $post_id, $additional_data ) {
+	/**
+	 * Get attributes.
+	 *
+	 * @param mixed $network Network.
+	 * @param mixed $post_id Post id.
+	 * @param mixed $additional_data Additional data.
+	 */
+	public function get_attributes( $network, $post_id, $additional_data ) {
 		switch ( $network ) {
 			case 'pinterest':
 				if ( ! isset( $additional_data['image'] ) || false === $additional_data['image'] ) {
@@ -55,7 +87,12 @@ class Frizzly_Button_Generator {
 		}
 	}
 
-	function get_network_class( $network ) {
+	/**
+	 * Get network class.
+	 *
+	 * @param mixed $network Network.
+	 */
+	public function get_network_class( $network ) {
 		switch ( $network ) {
 			case 'email':
 				return 'fa-envelope-o';
@@ -66,6 +103,11 @@ class Frizzly_Button_Generator {
 		}
 	}
 
+	/**
+	 * Get target attribute.
+	 *
+	 * @param mixed $network Network.
+	 */
 	private function get_target_attribute( $network ) {
 		switch ( $network ) {
 			case 'email':
@@ -75,6 +117,9 @@ class Frizzly_Button_Generator {
 		}
 	}
 
+	/**
+	 * Get align class.
+	 */
 	private function get_align_class() {
 		$align = array_key_exists( 'align', $this->options ) ? $this->options['align'] : '';
 		switch ( $align ) {

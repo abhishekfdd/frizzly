@@ -65,3 +65,6 @@ _ide_helper.php
 # Testing
 .phpunit.result.cache
 coverage/
+vendor/
+node_modules/
+.DS_Store

@@ -1,11 +1,11 @@
 === Frizzly - Social Share Buttons ===
-Contributors: mrsztuczkens, abhishekfdd
-Tags: share, share button, Facebook, twitter, pinterest, linkedin, bookmark, Share, share this, sharing, social, socialize, pin it, button, image, images, pinit, social media, hover, photo, photos
-Requires at least: 3.5
-Tested up to: 5.5.3
-Stable tag: 1.1.0
-License: GPLv2 and (components under MIT License)
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Contributors: abhishekfdd
+Tags: share buttons, social sharing, pinterest, twitter, facebook
+Requires at least: 4.7
+Tested up to: 7.0
+Stable tag: 1.1.1
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Frizzly allows you to add share buttons on images and in post content.
 
@@ -24,12 +24,37 @@ Features:
 = Where do I report bugs, improvements and suggestions? =
 Please report them in the plugin's [support forum on WordPress.org](https://wordpress.org/support/plugin/frizzly).
 
+= Is the JavaScript in this plugin minified or obfuscated? =
+No. `js/frizzly.client.js`, `js/frizzly.admin.js` and `js/frizzly.meta.js` are Browserify bundles, shipped unminified and unobfuscated. Every module is included inline in readable form, with its original relative path recorded in the bundle's dependency map, so the full source of the plugin's own code is present in the download and can be read and audited directly. The original build toolchain is being restored so that a separate source tree and build configuration can ship alongside the bundles in a future release.
+
+== Third-party libraries ==
+
+This plugin bundles the following libraries, all under GPL-compatible licenses:
+
+* Font Awesome 4.6.3 - font under SIL OFL 1.1, CSS under MIT - https://fontawesome.com
+* AngularJS 1.5.8 and ngSanitize - MIT - https://angularjs.org
+* angular-tooltips - MIT
+* angular-drag-and-drop-lists - MIT
+* jquery-modal - MIT
+
+The image attribute handling in the image module is adapted from the Photo Protect plugin, and the attachment-ID-by-URL helper is adapted from a snippet by Frankie Jarrett; both are credited in the source.
+
 == Screenshots ==
 1. Share buttons on hover.
 2. Share buttons after post.
 3. Settings screen
 
 == Changelog ==
+
+= 1.1.1 =
+* Released 2026-08-09
+* Security: fixed a reflected cross-site scripting issue in the admin notice shown when no modules are active (CVE-2025-30554). The notice's dismiss link was built from the current request URI; it now uses an explicit admin URL.
+* Security: escaped the Open Graph and Twitter meta tags added to the site head, which previously output post-specific social settings unescaped.
+* Security: escaped all output on the post editor's Frizzly meta box and sanitised those fields on save.
+* Security: the settings screen now validates the requested tab against the registered tabs instead of trusting the query string.
+* Security: hardened the share-by-email endpoint (missing post check, sender domain no longer derived from the Host header).
+* Hardening: translated strings used as inline templates in the settings screen are sanitised and no longer evaluated as AngularJS expressions.
+* Fixed: the plugin bootstrapped during plugin load, which made WordPress load its text domain before the init action. On WordPress 6.7+ this produced a "triggered too early" notice and, with debug display enabled, sent output early enough to break admin redirects.
 
 = 1.1.0 =
 * Released 2017-01-30
